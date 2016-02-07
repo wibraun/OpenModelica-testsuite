@@ -1,0 +1,180 @@
+// name: inlineFunction2
+// status: correct
+
+loadString("
+model foo
+  function f
+    input Real x;
+    output Real y;
+    output Real y1;
+  protected
+    Real a[2];
+  algorithm
+     a[1] := 1;
+     a[2] := 1;
+     y := sum(a)*x;
+     y1 := sum(a)*x + y;
+    annotation(Inline=true); 
+  end f;
+
+  Real y(start=0,fixed=true);
+  Real dy = der(y);
+equation
+ der(y) + 1 = f(der(y));
+end foo;
+");
+getErrorString();
+setCommandLineOptions("+d=dumpBackendInline");
+getErrorString();
+
+simulate(foo);
+getErrorString();
+
+val(time,{0,0.5,1.0});
+val(y,{0,0.5,1.0});
+// Result:
+// true
+// ""
+// true
+// ""
+//
+// ###############BackendInline############
+// eq:dy = der(y)
+//
+// BackendInline fail for  in:der(y)
+//
+// eq:dy = der(y)
+// outExp:foo.f(dy)
+//
+// BackendInline
+// start: $$Pfoo$Pf
+// function body: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (2)
+// ========================================
+// 1: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a[1] = 1.0   [unknown]
+// 2/2 (1): a[2] = 1.0   [unknown]
+// 3/3 (1): y = (a[1] + a[2]) * x   [unknown]
+// 4/4 (1): y1 = (a[1] + a[2]) * x + y   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body replaced: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (2)
+// ========================================
+// 1: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a[1] = 1.0   [unknown]
+// 2/2 (1): a[2] = 1.0   [unknown]
+// 3/3 (1): y = (a[1] + a[2]) * dy   [unknown]
+// 4/4 (1): y1 = (a[1] + a[2]) * dy + y   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body replaced2: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (4)
+// ========================================
+// 1: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+// 3: y1$$Pfoo$Pf1:VARIABLE()  type: Real
+// 4: y$$Pfoo$Pf0:VARIABLE()  type: Real
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): y1$$Pfoo$Pf1 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * dy + y$$Pfoo$Pf0   [unknown]
+// 2/2 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * dy   [unknown]
+// 3/3 (1): a$$Pfoo$Pf2[2] = 1.0   [unknown]
+// 4/4 (1): a$$Pfoo$Pf2[1] = 1.0   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body reduced: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (4)
+// ========================================
+// 1: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+// 3: y$$Pfoo$Pf0:VARIABLE()  type: Real
+// 4: y1$$Pfoo$Pf1:VARIABLE()  type: Real
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a$$Pfoo$Pf2[1] = 1.0   [unknown]
+// 2/2 (1): a$$Pfoo$Pf2[2] = 1.0   [unknown]
+// 3/3 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * dy   [unknown]
+// 4/4 (1): y1$$Pfoo$Pf1 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * dy + y$$Pfoo$Pf0   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// ende: $$Pfoo$PfoutExp:(y1$$Pfoo$Pf1, y$$Pfoo$Pf0)
+// record SimulationResult
+//     resultFile = "foo_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'foo', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = ""
+// end SimulationResult;
+// ""
+// {0.0,0.5,1.0}
+// {0.0,0.1666666666666666,0.3333333333333334}
+// endResult
