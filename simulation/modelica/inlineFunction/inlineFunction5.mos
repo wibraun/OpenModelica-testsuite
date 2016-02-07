@@ -1,0 +1,332 @@
+// name: inlineFunction5
+// status: correct
+
+loadString("
+model foo
+
+  record A
+    Real a;
+    Real b;
+  end A;
+
+  function f
+    input A x;
+    input Real[:] z;
+    output Real y;
+    output Real y1;
+  protected
+    Real a[2];
+  algorithm
+     a[1] := f1(z[1]);
+     a[2] := f1(z[2]);
+     y := sum(a)*x.a + sum(z);
+     y1 := sum(a)*x.b + y + sum(z);
+    annotation(Inline=true); 
+  end f;
+
+  function f1
+    input Real y;
+    output Real x;
+  protected
+    Real y1 = 2*y + 7;
+    Real[2] z = {2*y1, y*y1};
+  algorithm
+    x := sum(z)*sum(z)*y1*y;
+    annotation(Inline=true); 
+  end f1;
+
+  Real y(start=0,fixed=true);
+  Real dy = der(y);
+  Real y1,y2;
+  Real[:] z =  {time, cos(time), exp(-time)};
+equation
+ der(y) + 1 = f(A(5 + time,3), z);
+ (y1,y2) = f(A(5 + time,3), z);
+end foo;
+");
+getErrorString();
+setCommandLineOptions("+d=dumpBackendInline");
+simulate(foo);
+getErrorString();
+val(time,{0,0.5,1.0});
+val(y,{0,0.5,1.0});
+// Result:
+// true
+// ""
+// true
+//
+// ###############BackendInline############
+// eq:dy = der(y)
+//
+// BackendInline fail for  in:der(y)
+//
+// eq:dy = der(y)
+//
+// BackendInline fail for  in:cos(time)
+//
+// BackendInline fail for  in:exp(-time)
+// outExp:foo.A(5.0 + time, 3.0)
+//
+// BackendInline fail for  in:foo.A(5.0 + time, 3.0)
+// outExp:foo.f(foo.A(5.0 + time, 3.0), {z[1], z[2], z[3]})
+//
+// BackendInline
+// start: $$Pfoo$Pf
+// function body: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (2)
+// ========================================
+// 1: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a[1] = foo.f1(z[1])   [unknown]
+// 2/2 (1): a[2] = foo.f1(z[2])   [unknown]
+// 3/3 (1): y = (a[1] + a[2]) * x.a + sum(z)   [unknown]
+// 4/4 (1): y1 = (a[1] + a[2]) * x.b + y + sum(z)   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body replaced: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (2)
+// ========================================
+// 1: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a[1] = foo.f1(z[1])   [unknown]
+// 2/2 (1): a[2] = foo.f1(z[2])   [unknown]
+// 3/3 (1): y = (a[1] + a[2]) * (5.0 + time) + sum({z[1], z[2], z[3]})   [unknown]
+// 4/4 (1): y1 = (a[1] + a[2]) * 3.0 + y + sum({z[1], z[2], z[3]})   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body replaced2: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (4)
+// ========================================
+// 1: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+// 3: y1$$Pfoo$Pf1:VARIABLE()  type: Real
+// 4: y$$Pfoo$Pf0:VARIABLE()  type: Real
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): y1$$Pfoo$Pf1 = 3.0 * (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) + y$$Pfoo$Pf0 + z[1] + z[2] + z[3]   [unknown]
+// 2/2 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * (5.0 + time) + z[1] + z[2] + z[3]   [unknown]
+// 3/3 (1): a$$Pfoo$Pf2[2] = foo.f1(z[2])   [unknown]
+// 4/4 (1): a$$Pfoo$Pf2[1] = foo.f1(z[1])   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body reduced: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (4)
+// ========================================
+// 1: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+// 3: y$$Pfoo$Pf0:VARIABLE()  type: Real
+// 4: y1$$Pfoo$Pf1:VARIABLE()  type: Real
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a$$Pfoo$Pf2[1] = foo.f1(z[1])   [unknown]
+// 2/2 (1): a$$Pfoo$Pf2[2] = foo.f1(z[2])   [unknown]
+// 3/3 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * (5.0 + time) + z[1] + z[2] + z[3]   [unknown]
+// 4/4 (1): y1$$Pfoo$Pf1 = 3.0 * (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) + y$$Pfoo$Pf0 + z[1] + z[2] + z[3]   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// ende: $$Pfoo$PfoutExp:(y1$$Pfoo$Pf1, y$$Pfoo$Pf0)
+// outExp:foo.A(5.0 + time, 3.0)
+//
+// BackendInline fail for  in:foo.A(5.0 + time, 3.0)
+// outExp:foo.f(foo.A(5.0 + time, 3.0), {z[1], z[2], z[3]})
+//
+// BackendInline
+// start: $$Pfoo$Pf
+// function body: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (2)
+// ========================================
+// 1: a$$Pfoo$Pf5[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf5[2]:VARIABLE()  type: Real [2]
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a[1] = foo.f1(z[1])   [unknown]
+// 2/2 (1): a[2] = foo.f1(z[2])   [unknown]
+// 3/3 (1): y = (a[1] + a[2]) * x.a + sum(z)   [unknown]
+// 4/4 (1): y1 = (a[1] + a[2]) * x.b + y + sum(z)   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body replaced: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (2)
+// ========================================
+// 1: a$$Pfoo$Pf5[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf5[2]:VARIABLE()  type: Real [2]
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a[1] = foo.f1(z[1])   [unknown]
+// 2/2 (1): a[2] = foo.f1(z[2])   [unknown]
+// 3/3 (1): y = (a[1] + a[2]) * (5.0 + time) + sum({z[1], z[2], z[3]})   [unknown]
+// 4/4 (1): y1 = (a[1] + a[2]) * 3.0 + y + sum({z[1], z[2], z[3]})   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body replaced2: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (4)
+// ========================================
+// 1: a$$Pfoo$Pf5[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf5[2]:VARIABLE()  type: Real [2]
+// 3: y1$$Pfoo$Pf4:VARIABLE()  type: Real
+// 4: y$$Pfoo$Pf3:VARIABLE()  type: Real
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): y1$$Pfoo$Pf4 = 3.0 * (a$$Pfoo$Pf5[1] + a$$Pfoo$Pf5[2]) + y$$Pfoo$Pf3 + z[1] + z[2] + z[3]   [unknown]
+// 2/2 (1): y$$Pfoo$Pf3 = (a$$Pfoo$Pf5[1] + a$$Pfoo$Pf5[2]) * (5.0 + time) + z[1] + z[2] + z[3]   [unknown]
+// 3/3 (1): a$$Pfoo$Pf5[2] = foo.f1(z[2])   [unknown]
+// 4/4 (1): a$$Pfoo$Pf5[1] = foo.f1(z[1])   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// function body reduced: $$Pfoo$Pf
+// unknown partition
+// ========================================
+//
+// Variables (4)
+// ========================================
+// 1: a$$Pfoo$Pf5[1]:VARIABLE()  type: Real [2]
+// 2: a$$Pfoo$Pf5[2]:VARIABLE()  type: Real [2]
+// 3: y$$Pfoo$Pf3:VARIABLE()  type: Real
+// 4: y1$$Pfoo$Pf4:VARIABLE()  type: Real
+//
+//
+// Equations (4, 4)
+// ========================================
+// 1/1 (1): a$$Pfoo$Pf5[1] = foo.f1(z[1])   [unknown]
+// 2/2 (1): a$$Pfoo$Pf5[2] = foo.f1(z[2])   [unknown]
+// 3/3 (1): y$$Pfoo$Pf3 = (a$$Pfoo$Pf5[1] + a$$Pfoo$Pf5[2]) * (5.0 + time) + z[1] + z[2] + z[3]   [unknown]
+// 4/4 (1): y1$$Pfoo$Pf4 = 3.0 * (a$$Pfoo$Pf5[1] + a$$Pfoo$Pf5[2]) + y$$Pfoo$Pf3 + z[1] + z[2] + z[3]   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// no matching
+//
+//
+// ende: $$Pfoo$PfoutExp:(y1$$Pfoo$Pf4, y$$Pfoo$Pf3)
+// record SimulationResult
+//     resultFile = "foo_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'foo', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = ""
+// end SimulationResult;
+// ""
+// {0.0,0.5,1.0}
+// {0.0,27191.31176637179,57893.7647649473}
+// endResult
