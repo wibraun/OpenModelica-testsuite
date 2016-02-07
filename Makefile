@@ -59,6 +59,7 @@ simulationindexreduction.log \
 simulationinheritances.log \
 simulationjapaneselanguage.log \
 simualtionlinear_system.log \
+simulationinlinefunction.log \
 simulationnonlinear_system.log \
 simulationothers.log \
 simulationpackages.log \
@@ -109,6 +110,7 @@ simulationindexreduction.log \
 simulationinheritances.log \
 simulationjapaneselanguage.log \
 simualtionlinear_system.log \
+simulationinlinefunction.log \
 simulationnonlinear_system.log \
 simulationothers.log \
 simulationpackages.log \
@@ -331,6 +333,9 @@ simualtionlinear_system.log: omc-diff
 simulationnonlinear_system.log: omc-diff
 	$(MAKE) -C simulation/modelica/nonlinear_system -f Makefile test > $@
 	@echo $@ done
+simulationinlinefunction.log: omc-diff
+        $(MAKE) -C simulation/modelica/inlineFunction -f Makefile test > $@
+        @echo $@ done
 simulationothers.log: omc-diff
 	$(MAKE) -C simulation/modelica/others -f Makefile test > $@
 	@echo $@ done

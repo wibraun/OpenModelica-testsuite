@@ -110,7 +110,6 @@ res := OpenModelica.Scripting.compareSimulationResults("NPendulum_res.mat",
   "NPendulum_diff.csv",0.01,0.01,
   {"phi[10]"});
 
-
 // Result:
 // true
 // ""
