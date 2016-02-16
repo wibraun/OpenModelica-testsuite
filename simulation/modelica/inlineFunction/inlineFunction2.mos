@@ -39,41 +39,6 @@ val(y,{0,0.5,1.0});
 // ""
 //
 // ############ BackendInline ############
-// BackendInline fail for  in:der(y)
-//
-// BackendInline
-// start: $$Pfoo$Pf
-// function body: $$Pfoo$Pf
-// unknown partition
-// ========================================
-//
-// Variables (4)
-// ========================================
-// 1: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 2: y1$$Pfoo$Pf1:VARIABLE()  type: Real
-// 3: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
-// 4: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
-//
-//
-// Equations (4, 4)
-// ========================================
-// 1/1 (1): a[1] = 1.0   [unknown]
-// 2/2 (1): a[2] = 1.0   [unknown]
-// 3/3 (1): y = (a[1] + a[2]) * x   [unknown]
-// 4/4 (1): y1 = (a[1] + a[2]) * x + y   [unknown]
-//
-//
-// Simple Equations (0, 0)
-// ========================================
-//
-//
-// State Sets
-// ========================================
-//
-//
-// no matching
-//
-//
 // function body replace body: $$Pfoo$Pf
 // unknown partition
 // ========================================
@@ -104,45 +69,6 @@ val(y,{0,0.5,1.0});
 //
 // no matching
 //
-//
-// function replaced arguments: $$Pfoo$Pf
-// unknown partition
-// ========================================
-//
-// Variables (4)
-// ========================================
-// 1: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 2: y1$$Pfoo$Pf1:VARIABLE()  type: Real
-// 3: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
-// 4: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
-//
-//
-// Equations (4, 4)
-// ========================================
-// 1/1 (1): y1$$Pfoo$Pf1 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * dy + y$$Pfoo$Pf0   [unknown]
-// 2/2 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * dy   [unknown]
-// 3/3 (1): a$$Pfoo$Pf2[2] = 1.0   [unknown]
-// 4/4 (1): a$$Pfoo$Pf2[1] = 1.0   [unknown]
-//
-//
-// Simple Equations (0, 0)
-// ========================================
-//
-//
-// State Sets
-// ========================================
-//
-//
-// no matching
-//
-// Inline Function $$Pfoo$Pf type:  "Inline before index reduction"
-// outExp:(y$$Pfoo$Pf0, y1$$Pfoo$Pf1)
-//
-// inEquation:(1.0 + dy, _) = foo.f(dy)
-//
-// out Equation:(1.0 + dy, _) = (y$$Pfoo$Pf0, y1$$Pfoo$Pf1)
-//
-// BackendInline fail for  in:der(y)
 //
 // ########################################
 // Result DAE after Inline. (1 partitions)

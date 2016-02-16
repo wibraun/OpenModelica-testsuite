@@ -33,41 +33,6 @@ val(y,{0,0.5,1.0});
 // true
 //
 // ############ BackendInline ############
-// BackendInline fail for  in:cos(time)
-//
-// BackendInline fail for  in:der(y)
-//
-// BackendInline
-// start: $$Pfoo$Pf1
-// function body: $$Pfoo$Pf1
-// unknown partition
-// ========================================
-//
-// Variables (3)
-// ========================================
-// 1: x$$Pfoo$Pf10:VARIABLE()  type: Real
-// 2: y1$$Pfoo$Pf11:VARIABLE()  type: Real
-// 3: z$$Pfoo$Pf12:VARIABLE()  type: Real
-//
-//
-// Equations (3, 3)
-// ========================================
-// 1/1 (1): y1$$Pfoo$Pf11 = 7.0 + 2.0 * y   [unknown]
-// 2/2 (1): z$$Pfoo$Pf12 = 2.0 * y1   [unknown]
-// 3/3 (1): x = 0.1 * sqrt(z ^ 2.0 * y1 * y) / y1   [unknown]
-//
-//
-// Simple Equations (0, 0)
-// ========================================
-//
-//
-// State Sets
-// ========================================
-//
-//
-// no matching
-//
-//
 // function body replace body: $$Pfoo$Pf1
 // unknown partition
 // ========================================
@@ -96,47 +61,6 @@ val(y,{0,0.5,1.0});
 //
 // no matching
 //
-//
-// function replaced arguments: $$Pfoo$Pf1
-// unknown partition
-// ========================================
-//
-// Variables (3)
-// ========================================
-// 1: x$$Pfoo$Pf10:VARIABLE()  type: Real
-// 2: y1$$Pfoo$Pf11:VARIABLE()  type: Real
-// 3: z$$Pfoo$Pf12:VARIABLE()  type: Real
-//
-//
-// Equations (3, 3)
-// ========================================
-// 1/1 (1): x$$Pfoo$Pf10 = 0.1 * sqrt(z$$Pfoo$Pf12 ^ 2.0 * y1$$Pfoo$Pf11 * z) / y1$$Pfoo$Pf11   [unknown]
-// 2/2 (1): z$$Pfoo$Pf12 = 2.0 * y1$$Pfoo$Pf11   [unknown]
-// 3/3 (1): y1$$Pfoo$Pf11 = 7.0 + 2.0 * z   [unknown]
-//
-//
-// Simple Equations (0, 0)
-// ========================================
-//
-//
-// State Sets
-// ========================================
-//
-//
-// no matching
-//
-// Inline Function $$Pfoo$Pf1 type:  "Inline before index reduction"
-// outExp:x$$Pfoo$Pf10
-//
-// inEquation:1.0 + der(y) = foo.f1(z)
-//
-// out Equation:1.0 + der(y) = x$$Pfoo$Pf10
-//
-// BackendInline fail for  in:cos(time)
-//
-// BackendInline fail for  in:der(y)
-//
-// BackendInline fail for  in:sqrt(z$$Pfoo$Pf12 ^ 2.0 * y1$$Pfoo$Pf11 * z)
 //
 // ########################################
 // Result DAE after Inline. (1 partitions)
