@@ -1,0 +1,127 @@
+// name: inlineFunction9
+// status: correct
+
+loadString("
+model foo
+  function f
+    input Real z;
+    output Real y;
+  algorithm
+    y := sin(z)*cos(z);
+    annotation(Inline= true);
+  end f;
+
+  Real y;
+  Real y1;
+equation
+  if noEvent(time>=0.5) then 
+    y = f(time-0.5);
+    y1 = sin(time);
+  else
+    y = cos(time);
+    y1 = f(time);
+  end if;
+end foo;
+");
+getErrorString();
+setCommandLineOptions("+d=dumpBackendInline");
+getErrorString();
+simulate(foo);
+getErrorString();
+val(time,{0,0.5,1.0});
+val(y,{0,0.5,1.0});
+// Result:
+// true
+// ""
+// true
+// ""
+//
+// ############ BackendInline ############
+// BackendInline fail for  in:noEvent(time >= 0.5)
+//
+// BackendInline fail for  in:foo.f(-0.5 + time)
+//
+// BackendInline fail for  in:sin(2.0 * (-0.5 + time))
+//
+// BackendInline fail for  in:cos(time)
+//
+// inEquation:y = if noEvent(time >= 0.5) then foo.f(-0.5 + time) else cos(time)
+//
+// out Equation:y = if noEvent(time >= 0.5) then 0.5 * sin(2.0 * (-0.5 + time)) else cos(time)
+//
+// BackendInline fail for  in:noEvent(time >= 0.5)
+//
+// BackendInline fail for  in:sin(time)
+//
+// BackendInline fail for  in:foo.f(time)
+//
+// BackendInline fail for  in:sin(2.0 * time)
+//
+// inEquation:y1 = if noEvent(time >= 0.5) then sin(time) else foo.f(time)
+//
+// out Equation:y1 = if noEvent(time >= 0.5) then sin(time) else 0.5 * sin(2.0 * time)
+//
+// BackendInline fail for  in:noEvent(time >= 0.5)
+//
+// BackendInline fail for  in:sin(2.0 * (-0.5 + time))
+//
+// BackendInline fail for  in:cos(time)
+//
+// BackendInline fail for  in:noEvent(time >= 0.5)
+//
+// BackendInline fail for  in:sin(time)
+//
+// BackendInline fail for  in:sin(2.0 * time)
+//
+// ########################################
+// Result DAE after Inline. (1 partitions)
+// ########################################
+//
+//
+// unknown partition
+// ========================================
+//
+// Variables (2)
+// ========================================
+// 1: y1:VARIABLE() .foo, .Real type: Real
+// 2: y:VARIABLE() .foo, .Real type: Real
+//
+//
+// Equations (2, 2)
+// ========================================
+// 1/1 (1): y = if noEvent(time >= 0.5) then 0.5 * sin(2.0 * (-0.5 + time)) else cos(time)   [unknown]
+// 2/2 (1): y1 = if noEvent(time >= 0.5) then sin(time) else 0.5 * sin(2.0 * time)   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// Incidence Matrix (row: equation)
+// ========================================
+// number of rows: 2
+// 1: 2
+// 2: 1
+//
+// Transposed Incidence Matrix (row: variable)
+// ========================================
+// number of rows: 2
+// 1: 2
+// 2: 1
+//
+// no matching
+//
+//
+// record SimulationResult
+//     resultFile = "foo_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'foo', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = ""
+// end SimulationResult;
+// ""
+// {0.0,0.5,1.0}
+// {1.0,0.0,0.4207354924039483}
+// endResult

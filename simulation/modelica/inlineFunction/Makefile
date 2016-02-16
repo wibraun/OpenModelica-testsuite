@@ -7,6 +7,10 @@ inlineFunction3.mos \
 inlineFunction4.mos \
 inlineFunction5.mos \
 inlineFunction6.mos \
+inlineFunction7.mos \
+inlineFunction8.mos \
+inlineFunction9.mos \
+testBug3687.mos \
 
 # test that currently fail. Move up when fixed.
 # Run make failingtest
