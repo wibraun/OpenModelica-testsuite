@@ -37,42 +37,6 @@ val(y,{0,0.5,1.0});
 // ""
 //
 // ############ BackendInline ############
-// BackendInline fail for  in:noEvent(time >= 0.5)
-//
-// BackendInline fail for  in:foo.f(-0.5 + time)
-//
-// BackendInline fail for  in:sin(2.0 * (-0.5 + time))
-//
-// BackendInline fail for  in:cos(time)
-//
-// inEquation:y = if noEvent(time >= 0.5) then foo.f(-0.5 + time) else cos(time)
-//
-// out Equation:y = if noEvent(time >= 0.5) then 0.5 * sin(2.0 * (-0.5 + time)) else cos(time)
-//
-// BackendInline fail for  in:noEvent(time >= 0.5)
-//
-// BackendInline fail for  in:sin(time)
-//
-// BackendInline fail for  in:foo.f(time)
-//
-// BackendInline fail for  in:sin(2.0 * time)
-//
-// inEquation:y1 = if noEvent(time >= 0.5) then sin(time) else foo.f(time)
-//
-// out Equation:y1 = if noEvent(time >= 0.5) then sin(time) else 0.5 * sin(2.0 * time)
-//
-// BackendInline fail for  in:noEvent(time >= 0.5)
-//
-// BackendInline fail for  in:sin(2.0 * (-0.5 + time))
-//
-// BackendInline fail for  in:cos(time)
-//
-// BackendInline fail for  in:noEvent(time >= 0.5)
-//
-// BackendInline fail for  in:sin(time)
-//
-// BackendInline fail for  in:sin(2.0 * time)
-//
 // ########################################
 // Result DAE after Inline. (1 partitions)
 // ########################################
