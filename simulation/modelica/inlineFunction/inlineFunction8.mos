@@ -1,28 +1,27 @@
-// name: inlineFunction1
+// name: inlineFunction8
 // status: correct
 
 loadString("
 model foo
-  function f
-    input Real x;
-    output Real y;
+
+  function f1
+    input Real y;
+    output Real x;
   protected
-    Real a[2];
+    Real y1 = 2*y + 7;
+    Real z = 2*y1;
   algorithm
-     a[1] := 1;
-     a[2] := 1;
-     y := sum(a)*x;
+    x := sqrt(z*z*y1*y)/10/y1;
     annotation(Inline=true); 
-  end f;
+  end f1;
 
   Real y(start=0,fixed=true);
-  Real dy = der(y);
+  Real z =  cos(time);
 equation
- der(y) + 1 = f(der(y));
+ der(y) + 1 = f1(z);
 end foo;
 ");
 getErrorString();
-
 setCommandLineOptions("+d=dumpBackendInline");
 simulate(foo);
 getErrorString();
@@ -34,26 +33,28 @@ val(y,{0,0.5,1.0});
 // true
 //
 // ############ BackendInline ############
+// BackendInline fail for  in:cos(time)
+//
 // BackendInline fail for  in:der(y)
 //
 // BackendInline
-// start: $$Pfoo$Pf
-// function body: $$Pfoo$Pf
+// start: $$Pfoo$Pf1
+// function body: $$Pfoo$Pf1
 // unknown partition
 // ========================================
 //
 // Variables (3)
 // ========================================
-// 1: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 2: a$$Pfoo$Pf1[1]:VARIABLE()  type: Real [2]
-// 3: a$$Pfoo$Pf1[2]:VARIABLE()  type: Real [2]
+// 1: x$$Pfoo$Pf10:VARIABLE()  type: Real
+// 2: y1$$Pfoo$Pf11:VARIABLE()  type: Real
+// 3: z$$Pfoo$Pf12:VARIABLE()  type: Real
 //
 //
 // Equations (3, 3)
 // ========================================
-// 1/1 (1): a[1] = 1.0   [unknown]
-// 2/2 (1): a[2] = 1.0   [unknown]
-// 3/3 (1): y = (a[1] + a[2]) * x   [unknown]
+// 1/1 (1): y1$$Pfoo$Pf11 = 7.0 + 2.0 * y   [unknown]
+// 2/2 (1): z$$Pfoo$Pf12 = 2.0 * y1   [unknown]
+// 3/3 (1): x = 0.1 * sqrt(z ^ 2.0 * y1 * y) / y1   [unknown]
 //
 //
 // Simple Equations (0, 0)
@@ -67,22 +68,22 @@ val(y,{0,0.5,1.0});
 // no matching
 //
 //
-// function body replace body: $$Pfoo$Pf
+// function body replace body: $$Pfoo$Pf1
 // unknown partition
 // ========================================
 //
 // Variables (3)
 // ========================================
-// 1: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 2: a$$Pfoo$Pf1[1]:VARIABLE()  type: Real [2]
-// 3: a$$Pfoo$Pf1[2]:VARIABLE()  type: Real [2]
+// 1: x$$Pfoo$Pf10:VARIABLE()  type: Real
+// 2: y1$$Pfoo$Pf11:VARIABLE()  type: Real
+// 3: z$$Pfoo$Pf12:VARIABLE()  type: Real
 //
 //
 // Equations (3, 3)
 // ========================================
-// 1/1 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf1[1] + a$$Pfoo$Pf1[2]) * x   [unknown]
-// 2/2 (1): a$$Pfoo$Pf1[2] = 1.0   [unknown]
-// 3/3 (1): a$$Pfoo$Pf1[1] = 1.0   [unknown]
+// 1/1 (1): x$$Pfoo$Pf10 = 0.1 * sqrt(z$$Pfoo$Pf12 ^ 2.0 * y1$$Pfoo$Pf11 * y) / y1$$Pfoo$Pf11   [unknown]
+// 2/2 (1): z$$Pfoo$Pf12 = 2.0 * y1$$Pfoo$Pf11   [unknown]
+// 3/3 (1): y1$$Pfoo$Pf11 = 7.0 + 2.0 * y   [unknown]
 //
 //
 // Simple Equations (0, 0)
@@ -96,22 +97,22 @@ val(y,{0,0.5,1.0});
 // no matching
 //
 //
-// function replaced arguments: $$Pfoo$Pf
+// function replaced arguments: $$Pfoo$Pf1
 // unknown partition
 // ========================================
 //
 // Variables (3)
 // ========================================
-// 1: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 2: a$$Pfoo$Pf1[1]:VARIABLE()  type: Real [2]
-// 3: a$$Pfoo$Pf1[2]:VARIABLE()  type: Real [2]
+// 1: x$$Pfoo$Pf10:VARIABLE()  type: Real
+// 2: y1$$Pfoo$Pf11:VARIABLE()  type: Real
+// 3: z$$Pfoo$Pf12:VARIABLE()  type: Real
 //
 //
 // Equations (3, 3)
 // ========================================
-// 1/1 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf1[1] + a$$Pfoo$Pf1[2]) * dy   [unknown]
-// 2/2 (1): a$$Pfoo$Pf1[2] = 1.0   [unknown]
-// 3/3 (1): a$$Pfoo$Pf1[1] = 1.0   [unknown]
+// 1/1 (1): x$$Pfoo$Pf10 = 0.1 * sqrt(z$$Pfoo$Pf12 ^ 2.0 * y1$$Pfoo$Pf11 * z) / y1$$Pfoo$Pf11   [unknown]
+// 2/2 (1): z$$Pfoo$Pf12 = 2.0 * y1$$Pfoo$Pf11   [unknown]
+// 3/3 (1): y1$$Pfoo$Pf11 = 7.0 + 2.0 * z   [unknown]
 //
 //
 // Simple Equations (0, 0)
@@ -124,14 +125,18 @@ val(y,{0,0.5,1.0});
 //
 // no matching
 //
-// Inline Function $$Pfoo$Pf type:  "Inline before index reduction"
-// outExp:y$$Pfoo$Pf0
+// Inline Function $$Pfoo$Pf1 type:  "Inline before index reduction"
+// outExp:x$$Pfoo$Pf10
 //
-// inEquation:1.0 + dy = foo.f(dy)
+// inEquation:1.0 + der(y) = foo.f1(z)
 //
-// out Equation:1.0 + dy = y$$Pfoo$Pf0
+// out Equation:1.0 + der(y) = x$$Pfoo$Pf10
+//
+// BackendInline fail for  in:cos(time)
 //
 // BackendInline fail for  in:der(y)
+//
+// BackendInline fail for  in:sqrt(z$$Pfoo$Pf12 ^ 2.0 * y1$$Pfoo$Pf11 * z)
 //
 // ########################################
 // Result DAE after Inline. (1 partitions)
@@ -143,20 +148,20 @@ val(y,{0,0.5,1.0});
 //
 // Variables (5)
 // ========================================
-// 1: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 2: a$$Pfoo$Pf1[1]:VARIABLE()  type: Real [2]
-// 3: a$$Pfoo$Pf1[2]:VARIABLE()  type: Real [2]
-// 4: dy:VARIABLE() .foo, .Real type: Real
+// 1: x$$Pfoo$Pf10:VARIABLE()  type: Real
+// 2: y1$$Pfoo$Pf11:VARIABLE()  type: Real
+// 3: z$$Pfoo$Pf12:VARIABLE()  type: Real
+// 4: z:VARIABLE() .foo, .Real type: Real
 // 5: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
 //
 //
 // Equations (5, 5)
 // ========================================
-// 1/1 (1): dy = der(y)   [binding]
-// 2/2 (1): 1.0 + dy = y$$Pfoo$Pf0   [dynamic]
-// 3/3 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf1[1] + a$$Pfoo$Pf1[2]) * dy   [unknown]
-// 4/4 (1): a$$Pfoo$Pf1[2] = 1.0   [unknown]
-// 5/5 (1): a$$Pfoo$Pf1[1] = 1.0   [unknown]
+// 1/1 (1): z = cos(time)   [binding]
+// 2/2 (1): 1.0 + der(y) = x$$Pfoo$Pf10   [dynamic]
+// 3/3 (1): x$$Pfoo$Pf10 = 0.1 * sqrt(z$$Pfoo$Pf12 ^ 2.0 * y1$$Pfoo$Pf11 * z) / y1$$Pfoo$Pf11   [unknown]
+// 4/4 (1): z$$Pfoo$Pf12 = 2.0 * y1$$Pfoo$Pf11   [unknown]
+// 5/5 (1): y1$$Pfoo$Pf11 = 7.0 + 2.0 * z   [unknown]
 //
 //
 // Simple Equations (0, 0)
@@ -170,14 +175,14 @@ val(y,{0,0.5,1.0});
 // Incidence Matrix (row: equation)
 // ========================================
 // number of rows: 2
-// 1: 2 1
-// 2: 1
+// 1: 1
+// 2: 1 2
 //
 // Transposed Incidence Matrix (row: variable)
 // ========================================
 // number of rows: 2
 // 1: 2 1
-// 2: 1
+// 2: 2
 //
 // no matching
 //
@@ -189,5 +194,5 @@ val(y,{0,0.5,1.0});
 // end SimulationResult;
 // ""
 // {0.0,0.5,1.0}
-// {0.0,0.5,1.0}
+// {0.0,-0.2076159475509919,-0.4606878908673863}
 // endResult
