@@ -1,4 +1,4 @@
-// name: inlineFunction7
+// name: inlineFunction11
 // status: correct
 
 loadString("
@@ -7,32 +7,54 @@ model foo
   record A
     Real a;
     Real b;
+    Boolean c;
   end A;
 
   function f
     input A x;
-    input Real z;
-    output Real y[2];
-    output Real w;
-  protected
-    Real a[2];
+    output Real y;
   algorithm
-     a :=  {2*x.a, z*x.b};
-     y := sum(a)*a;
-     w := sum(y);
+     y := if x.c then x.b+1 else x.b-1;
     annotation(Inline=true); 
   end f;
 
+  function f1
+    input Real p;
+    output Real y;
+  protected
+    A r;
+  algorithm
+    r.a :=p;
+    r.b :=2*p;
+    r.c :=p>0.5;
+ 
+    y := if r.c then f(r.a,r) else sin(r.a);
+    annotation(Inline=true); 
+  end f1;
+
+  function f2
+    input Real x;
+    input Real y;
+    output A r;
+  algorithm
+    for i in {1} loop
+    r.a := if x>y then sin(x) else sin(y);
+    r.b := if y>x then sin(x)+5 else sin(y)-5;
+    r.c := if y<x then true else false;
+    end for;
+    annotation(Inline=true); 
+  end f2;
+
+
   Real y(start=0,fixed=true);
-  Real z[2];
+  A b = A(time,y,time>0.5);
 equation
-  z = f(A(5 + time,3), time);
-  der(y) = z[1]+z[2]*time;
+  0 = f(f2(y,time))+der(y);
 end foo;
 ");
 getErrorString();
-
 setCommandLineOptions("+d=dumpBackendInline");
+getErrorString();
 simulate(foo);
 getErrorString();
 val(time,{0,0.5,1.0});
@@ -41,6 +63,7 @@ val(y,{0,0.5,1.0});
 // true
 // ""
 // true
+// ""
 //
 // ############ BackendInline ############
 // ########################################
@@ -51,27 +74,20 @@ val(y,{0,0.5,1.0});
 // unknown partition
 // ========================================
 //
-// Variables (8)
+// Variables (4)
 // ========================================
-// 1: y$$Pfoo$Pf0[1]:VARIABLE()  type: Real [2]
-// 2: y$$Pfoo$Pf0[2]:VARIABLE()  type: Real [2]
-// 3: w$$Pfoo$Pf1:VARIABLE()  type: Real
-// 4: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
-// 5: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
-// 6: z[2]:VARIABLE() .foo, .Real type: Real [2]
-// 7: z[1]:VARIABLE() .foo, .Real type: Real [2]
-// 8: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
+// 1: b.c:DISCRETE() .foo, .foo.A, .Boolean type: Boolean
+// 2: b.b:VARIABLE() .foo, .foo.A, .Real type: Real
+// 3: b.a:VARIABLE() .foo, .foo.A, .Real type: Real
+// 4: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
 //
 //
-// Equations (7, 8)
+// Equations (4, 4)
 // ========================================
-// 1/1 (2): (z, _) = (y$$Pfoo$Pf0, w$$Pfoo$Pf1)   [dynamic]
-// 2/3 (1): der(y) = z[1] + z[2] * time   [dynamic]
-// 3/4 (1): w$$Pfoo$Pf1 = y$$Pfoo$Pf0[1] + y$$Pfoo$Pf0[2]   [unknown]
-// 4/5 (1): y$$Pfoo$Pf0[2] = a$$Pfoo$Pf2[2] * (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2])   [unknown]
-// 5/6 (1): y$$Pfoo$Pf0[1] = a$$Pfoo$Pf2[1] * (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2])   [unknown]
-// 6/7 (1): a$$Pfoo$Pf2[2] = time * 3.0   [unknown]
-// 7/8 (1): a$$Pfoo$Pf2[1] = 2.0 * (5.0 + time)   [unknown]
+// 1/1 (1): b.a = time   [dynamic]
+// 2/2 (1): b.b = y   [dynamic]
+// 3/3 (1): b.c = time > 0.5   [dynamic]
+// 4/4 (1): 0.0 = foo.f(foo.f2(y, time)) + der(y)   [dynamic]
 //
 //
 // Simple Equations (0, 0)
@@ -84,16 +100,19 @@ val(y,{0,0.5,1.0});
 //
 // Incidence Matrix (row: equation)
 // ========================================
-// number of rows: 2
-// 1: 2 1
-// 2: 1 2 3
+// number of rows: 4
+// 1: 3
+// 2: -4 2
+// 3: 1
+// 4: 4 -4
 //
 // Transposed Incidence Matrix (row: variable)
 // ========================================
-// number of rows: 3
-// 1: 2 1
-// 2: 2 1
-// 3: 2
+// number of rows: 4
+// 1: 3
+// 2: 2
+// 3: 1
+// 4: -4 4 -2
 //
 // no matching
 //
@@ -103,7 +122,8 @@ val(y,{0,0.5,1.0});
 //     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'foo', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
 //     messages = ""
 // end SimulationResult;
-// ""
+// "[BackEnd/BackendDAEUtil.mo:0:0-0:0:writable] Error: Internal error traverseBackendDAEExpsEqnsWithUpdate failed for omc_newBackendInline_replaceArgs
+// "
 // {0.0,0.5,1.0}
-// {0.0,60.6510630603002,152.0833501278569}
+// {0.0,1.877583356589937,3.540310995780263}
 // endResult

@@ -10,7 +10,10 @@ inlineFunction6.mos \
 inlineFunction7.mos \
 inlineFunction8.mos \
 inlineFunction9.mos \
+inlineFunction10.mos \
+inlineFunction11.mos \
 testBug3687.mos \
+testComplexMath.mos \
 
 # test that currently fail. Move up when fixed.
 # Run make failingtest

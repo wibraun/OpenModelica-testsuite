@@ -39,37 +39,6 @@ val(y,{0,0.5,1.0});
 // ""
 //
 // ############ BackendInline ############
-// function body replace body: $$Pfoo$Pf
-// unknown partition
-// ========================================
-//
-// Variables (4)
-// ========================================
-// 1: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 2: y1$$Pfoo$Pf1:VARIABLE()  type: Real
-// 3: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
-// 4: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
-//
-//
-// Equations (4, 4)
-// ========================================
-// 1/1 (1): y1$$Pfoo$Pf1 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * x + y$$Pfoo$Pf0   [unknown]
-// 2/2 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * x   [unknown]
-// 3/3 (1): a$$Pfoo$Pf2[2] = 1.0   [unknown]
-// 4/4 (1): a$$Pfoo$Pf2[1] = 1.0   [unknown]
-//
-//
-// Simple Equations (0, 0)
-// ========================================
-//
-//
-// State Sets
-// ========================================
-//
-//
-// no matching
-//
-//
 // ########################################
 // Result DAE after Inline. (1 partitions)
 // ########################################
