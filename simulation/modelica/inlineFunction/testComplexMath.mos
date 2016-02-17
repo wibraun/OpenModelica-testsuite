@@ -1,4 +1,4 @@
-// name: testComplexMath1
+// name: testComplexMath
 // status: correct
 
 loadModel(Modelica);
@@ -29,4 +29,98 @@ getErrorString();
 val(z,{0,0.5,1.0});
 
 // Result:
+// true
+// ""
+// true
+// ""
+// true
+//
+// ############ BackendInline ############
+// ########################################
+// Result DAE after Inline. (1 partitions)
+// ########################################
+//
+//
+// unknown partition
+// ========================================
+//
+// Variables (12)
+// ========================================
+// 1: r$$PModelica$PComplexMath$Pimag0:VARIABLE()  type: Real
+// 2: tmp0:VARIABLE() .A, .Real type: Real
+// 3: c3.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
+// 4: c3.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
+// 5: w:VARIABLE() .A, .Real type: Real
+// 6: z:VARIABLE() .A, .Real type: Real
+// 7: c2.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
+// 8: c2.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
+// 9: c.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
+// 10: c.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
+// 11: y:STATE(1)() .A, .Real type: Real
+// 12: x:STATE(1)() .A, .Real type: Real
+//
+//
+// Equations (11, 12)
+// ========================================
+// 1/1 (1): c.re = x   [dynamic]
+// 2/2 (1): c.im = y   [dynamic]
+// 3/3 (1): c2.re = 2.0 * x   [dynamic]
+// 4/4 (1): c2.im = 2.0 * y   [dynamic]
+// 5/5 (2): c3 = Complex.'constructor'.fromReal(z, 0.0)   [dynamic]
+// 6/7 (1): der(x) = sin(time * y)   [dynamic]
+// 7/8 (1): der(y) = cos(time * x)   [dynamic]
+// 8/9 (1): tmp0 = c.re   [dynamic]
+// 9/10 (1): z = tmp0   [dynamic]
+// 10/11 (1): w = r$$PModelica$PComplexMath$Pimag0   [dynamic]
+// 11/12 (1): r$$PModelica$PComplexMath$Pimag0 = (-z) * c2.im   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// Incidence Matrix (row: equation)
+// ========================================
+// number of rows: 10
+// 1: -11 9
+// 2: -10 8
+// 3: -11 7
+// 4: -10 6
+// 5: 5 3 2
+// 6: -10 11
+// 7: -11 10
+// 8: 9 1
+// 9: 1 5
+// 10: 7 6 5 4
+//
+// Transposed Incidence Matrix (row: variable)
+// ========================================
+// number of rows: 11
+// 1: 9 8
+// 2: 5
+// 3: 5
+// 4: 10
+// 5: 10 9 5
+// 6: 10 4
+// 7: 10 3
+// 8: 2
+// 9: 8 1
+// 10: 7 -6 -4 -2
+// 11: -7 6 -3 -1
+//
+// no matching
+//
+//
+// record SimulationResult
+//     resultFile = "A_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'A', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = ""
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. Use +d=initialization for more information.
+// "
+// {0.0,0.04147451142667286,0.3099044610647076}
 // endResult
