@@ -1,6 +1,10 @@
 TEST = ../../../rtest -v
 
 TESTFILES = \
+inlineArray1.mos \
+inlineArray2.mos \
+inlineArray3.mos \
+inlineArrayRecord.mos \
 inlineFunction1.mos \
 inlineFunction2.mos \
 inlineFunction3.mos \
@@ -14,6 +18,7 @@ inlineFunction10.mos \
 inlineFunction11.mos \
 testBug3687.mos \
 testComplexMath.mos \
+
 
 # test that currently fail. Move up when fixed.
 # Run make failingtest

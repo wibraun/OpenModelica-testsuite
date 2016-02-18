@@ -1,6 +1,9 @@
 // name: testComplexMath
 // status: correct
 
+// use new inline method
+setCommandLineOption("+inlineMethod=append");
+
 loadModel(Modelica);
 getErrorString();
 
@@ -29,8 +32,10 @@ getErrorString();
 val(z,{0,0.5,1.0});
 
 // Result:
+//
 // true
-// ""
+// "[simulation/modelica/inlineFunction/testComplexMath.mos:5:1-5:45:writable] Error: Class setCommandLineOption not found in scope <global scope> (looking for a function or record).
+// "
 // true
 // ""
 // true
@@ -44,23 +49,22 @@ val(z,{0,0.5,1.0});
 // unknown partition
 // ========================================
 //
-// Variables (12)
+// Variables (11)
 // ========================================
-// 1: r$$PModelica$PComplexMath$Pimag0:VARIABLE()  type: Real
-// 2: tmp0:VARIABLE() .A, .Real type: Real
-// 3: c3.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
-// 4: c3.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
-// 5: w:VARIABLE() .A, .Real type: Real
-// 6: z:VARIABLE() .A, .Real type: Real
-// 7: c2.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
-// 8: c2.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
-// 9: c.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
-// 10: c.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
-// 11: y:STATE(1)() .A, .Real type: Real
-// 12: x:STATE(1)() .A, .Real type: Real
+// 1: tmp0:VARIABLE() .A, .Real type: Real
+// 2: c3.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
+// 3: c3.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
+// 4: w:VARIABLE() .A, .Real type: Real
+// 5: z:VARIABLE() .A, .Real type: Real
+// 6: c2.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
+// 7: c2.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
+// 8: c.im:VARIABLE()  "Imaginary part of complex number".A, .Complex, .Real type: Real
+// 9: c.re:VARIABLE()  "Real part of complex number".A, .Complex, .Real type: Real
+// 10: y:STATE(1)() .A, .Real type: Real
+// 11: x:STATE(1)() .A, .Real type: Real
 //
 //
-// Equations (11, 12)
+// Equations (10, 11)
 // ========================================
 // 1/1 (1): c.re = x   [dynamic]
 // 2/2 (1): c.im = y   [dynamic]
@@ -71,8 +75,7 @@ val(z,{0,0.5,1.0});
 // 7/8 (1): der(y) = cos(time * x)   [dynamic]
 // 8/9 (1): tmp0 = c.re   [dynamic]
 // 9/10 (1): z = tmp0   [dynamic]
-// 10/11 (1): w = r$$PModelica$PComplexMath$Pimag0   [dynamic]
-// 11/12 (1): r$$PModelica$PComplexMath$Pimag0 = (-z) * c2.im   [unknown]
+// 10/11 (1): w = (-z) * c2.im   [dynamic]
 //
 //
 // Simple Equations (0, 0)

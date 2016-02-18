@@ -1,6 +1,9 @@
 // name: inlineFunction9
 // status: correct
 
+// use new inline method
+setCommandLineOption("+inlineMethod=append");
+
 loadString("
 model foo
   function f
@@ -31,8 +34,10 @@ getErrorString();
 val(time,{0,0.5,1.0});
 val(y,{0,0.5,1.0});
 // Result:
+//
 // true
-// ""
+// "[simulation/modelica/inlineFunction/inlineFunction9.mos:5:1-5:45:writable] Error: Class setCommandLineOption not found in scope <global scope> (looking for a function or record).
+// "
 // true
 // ""
 //
@@ -45,20 +50,16 @@ val(y,{0,0.5,1.0});
 // unknown partition
 // ========================================
 //
-// Variables (4)
+// Variables (2)
 // ========================================
-// 1: y$$Pfoo$Pf1:VARIABLE()  type: Real
-// 2: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 3: y1:VARIABLE() .foo, .Real type: Real
-// 4: y:VARIABLE() .foo, .Real type: Real
+// 1: y1:VARIABLE() .foo, .Real type: Real
+// 2: y:VARIABLE() .foo, .Real type: Real
 //
 //
-// Equations (4, 4)
+// Equations (2, 2)
 // ========================================
-// 1/1 (1): y = if noEvent(time >= 0.5) then y$$Pfoo$Pf0 else cos(time)   [unknown]
-// 2/2 (1): y1 = if noEvent(time >= 0.5) then sin(time) else y$$Pfoo$Pf1   [unknown]
-// 3/3 (1): y$$Pfoo$Pf0 = 0.5 * sin(2.0 * (-0.5 + time))   [unknown]
-// 4/4 (1): y$$Pfoo$Pf1 = 0.5 * sin(2.0 * time)   [unknown]
+// 1/1 (1): y = if noEvent(time >= 0.5) then 0.5 * sin(2.0 * (-0.5 + time)) else cos(time)   [unknown]
+// 2/2 (1): y1 = if noEvent(time >= 0.5) then sin(time) else 0.5 * sin(2.0 * time)   [unknown]
 //
 //
 // Simple Equations (0, 0)

@@ -1,6 +1,9 @@
 // name: inlineFunction7
 // status: correct
 
+// use new inline method
+setCommandLineOption("+inlineMethod=append");
+
 loadString("
 model foo
 
@@ -38,8 +41,10 @@ getErrorString();
 val(time,{0,0.5,1.0});
 val(y,{0,0.5,1.0});
 // Result:
+//
 // true
-// ""
+// "[simulation/modelica/inlineFunction/inlineFunction7.mos:5:1-5:45:writable] Error: Class setCommandLineOption not found in scope <global scope> (looking for a function or record).
+// "
 // true
 //
 // ############ BackendInline ############
@@ -51,27 +56,17 @@ val(y,{0,0.5,1.0});
 // unknown partition
 // ========================================
 //
-// Variables (8)
+// Variables (3)
 // ========================================
-// 1: y$$Pfoo$Pf0[1]:VARIABLE()  type: Real [2]
-// 2: y$$Pfoo$Pf0[2]:VARIABLE()  type: Real [2]
-// 3: w$$Pfoo$Pf1:VARIABLE()  type: Real
-// 4: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
-// 5: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
-// 6: z[2]:VARIABLE() .foo, .Real type: Real [2]
-// 7: z[1]:VARIABLE() .foo, .Real type: Real [2]
-// 8: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
+// 1: z[2]:VARIABLE() .foo, .Real type: Real [2]
+// 2: z[1]:VARIABLE() .foo, .Real type: Real [2]
+// 3: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
 //
 //
-// Equations (7, 8)
+// Equations (2, 3)
 // ========================================
-// 1/1 (2): (z, _) = (y$$Pfoo$Pf0, w$$Pfoo$Pf1)   [dynamic]
+// 1/1 (2): (z, _) = foo.f(foo.A(5.0 + time, 3.0), time)   [dynamic]
 // 2/3 (1): der(y) = z[1] + z[2] * time   [dynamic]
-// 3/4 (1): w$$Pfoo$Pf1 = y$$Pfoo$Pf0[1] + y$$Pfoo$Pf0[2]   [unknown]
-// 4/5 (1): y$$Pfoo$Pf0[2] = a$$Pfoo$Pf2[2] * (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2])   [unknown]
-// 5/6 (1): y$$Pfoo$Pf0[1] = a$$Pfoo$Pf2[1] * (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2])   [unknown]
-// 6/7 (1): a$$Pfoo$Pf2[2] = time * 3.0   [unknown]
-// 7/8 (1): a$$Pfoo$Pf2[1] = 2.0 * (5.0 + time)   [unknown]
 //
 //
 // Simple Equations (0, 0)

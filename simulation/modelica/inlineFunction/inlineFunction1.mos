@@ -1,6 +1,9 @@
 // name: inlineFunction1
 // status: correct
 
+// use new inline method
+setCommandLineOption("+inlineMethod=append");
+
 loadString("
 model foo
   function f
@@ -29,8 +32,10 @@ getErrorString();
 val(time,{0,0.5,1.0});
 val(y,{0,0.5,1.0});
 // Result:
+//
 // true
-// ""
+// "[simulation/modelica/inlineFunction/inlineFunction1.mos:5:1-5:45:writable] Error: Class setCommandLineOption not found in scope <global scope> (looking for a function or record).
+// "
 // true
 //
 // ############ BackendInline ############
@@ -42,22 +47,16 @@ val(y,{0,0.5,1.0});
 // unknown partition
 // ========================================
 //
-// Variables (5)
+// Variables (2)
 // ========================================
-// 1: y$$Pfoo$Pf0:VARIABLE()  type: Real
-// 2: a$$Pfoo$Pf1[1]:VARIABLE()  type: Real [2]
-// 3: a$$Pfoo$Pf1[2]:VARIABLE()  type: Real [2]
-// 4: dy:VARIABLE() .foo, .Real type: Real
-// 5: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
+// 1: dy:VARIABLE() .foo, .Real type: Real
+// 2: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
 //
 //
-// Equations (5, 5)
+// Equations (2, 2)
 // ========================================
 // 1/1 (1): dy = der(y)   [binding]
-// 2/2 (1): 1.0 + dy = y$$Pfoo$Pf0   [dynamic]
-// 3/3 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf1[1] + a$$Pfoo$Pf1[2]) * dy   [unknown]
-// 4/4 (1): a$$Pfoo$Pf1[2] = 1.0   [unknown]
-// 5/5 (1): a$$Pfoo$Pf1[1] = 1.0   [unknown]
+// 2/2 (1): 1.0 + dy = foo.f(dy)   [dynamic]
 //
 //
 // Simple Equations (0, 0)
@@ -88,7 +87,8 @@ val(y,{0,0.5,1.0});
 //     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'foo', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
 //     messages = ""
 // end SimulationResult;
-// ""
+// "Warning: There are iteration variables with default zero start attribute. Use +d=initialization for more information.
+// "
 // {0.0,0.5,1.0}
 // {0.0,0.5,1.0}
 // endResult
