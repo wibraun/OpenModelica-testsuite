@@ -1,0 +1,38 @@
+// name: inlineRecords1
+// status: correct
+
+loadString("
+model foo
+  record A
+    Real x;
+    Real y;
+  end A;
+
+  function f
+    input A x;
+    output A y;
+  protected
+    A a;
+    A b = A(-x.x,-x.y);
+  algorithm
+     a.x := x.x + x.y;
+     y.x := x.x + a.x;
+     a.y := a.x + a.x;
+     y.y := a.y + a.x*x.x + y.x + b.x + b.y;
+    annotation(Inline=true); 
+  end f;
+
+  A a;
+  A b = A(time, time^2);
+equation
+ a = f(b);
+end foo;
+");
+getErrorString();
+
+setCommandLineOptions("+d=dumpBackendInline");
+getErrorString();
+simulate(foo);
+getErrorString();
+val(a.x,{0,0.5,1.0}); // 0, 3
+val(a.y,{0,0.5,1.0}); // 0, 7
