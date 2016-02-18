@@ -28,6 +28,30 @@ runScript(modelTesting);getErrorString();
 // Modelica.Fluid.Examples.Tanks.TanksWithOverflow
 // {"upperTank.level","upperTank.medium.h","lowerTank.level","lowerTank.medium.h"}
 // Compilation succeeded
+// Warning: Alias set with several free start values
+//  * candidate: lowerTank.heatTransfer.states[1].T(start = 500.0)
+//  * candidate: lowerTank.medium.state.T(start = 500.0)
+//  * candidate: lowerTank.medium.T(start = lowerTank.T_start)
+// => select value from lowerTank.medium.T(start = lowerTank.T_start) for variable: T$$PModelica$PFluid$PVessels$POpenTank$lowerTank$PHeatTransfer$lowerTank$heatTransfer$PMedium$Ptemperature81
+// Warning: Alias set with different nominal values
+//  * candidate: lowerTank.heatTransfer.heatPorts[1].T(nominal = 300.0)
+//  * candidate: lowerTank.heatTransfer.Ts[1](nominal = 300.0)
+//  * candidate: lowerTank.medium.T(nominal = 500.0)
+//  * candidate: lowerTank.medium.state.T(nominal = 500.0)
+//  * candidate: lowerTank.heatTransfer.states[1].T(nominal = 500.0)
+// => select value from lowerTank.heatTransfer.Ts[1](nominal = 300.0) for variable: T$$PModelica$PFluid$PVessels$POpenTank$lowerTank$PHeatTransfer$lowerTank$heatTransfer$PMedium$Ptemperature81
+// Warning: Alias set with several free start values
+//  * candidate: upperTank.heatTransfer.states[1].T(start = 500.0)
+//  * candidate: upperTank.medium.state.T(start = 500.0)
+//  * candidate: upperTank.medium.T(start = upperTank.T_start)
+// => select value from upperTank.medium.T(start = upperTank.T_start) for variable: T$$PModelica$PFluid$PVessels$POpenTank$upperTank$PHeatTransfer$upperTank$heatTransfer$PMedium$Ptemperature51
+// Warning: Alias set with different nominal values
+//  * candidate: upperTank.heatTransfer.heatPorts[1].T(nominal = 300.0)
+//  * candidate: upperTank.heatTransfer.Ts[1](nominal = 300.0)
+//  * candidate: upperTank.medium.T(nominal = 500.0)
+//  * candidate: upperTank.medium.state.T(nominal = 500.0)
+//  * candidate: upperTank.heatTransfer.states[1].T(nominal = 500.0)
+// => select value from upperTank.heatTransfer.Ts[1](nominal = 300.0) for variable: T$$PModelica$PFluid$PVessels$POpenTank$upperTank$PHeatTransfer$upperTank$heatTransfer$PMedium$Ptemperature51
 // Warning: Alias set with different nominal values
 //  * candidate: massFlowRate.medium.sat.psat(nominal = 1000000.0)
 //  * candidate: massFlowRate.medium.state.p(nominal = 1000000.0)
@@ -54,30 +78,6 @@ runScript(modelTesting);getErrorString();
 //  * candidate: upperTank.medium.state.h(start = 100000.0)
 //  * candidate: upperTank.heatTransfer.states[1].h(start = 100000.0)
 // => select value from upperTank.medium.h(start = upperTank.h_start) for variable: upperTank.medium.h
-// Warning: Alias set with several free start values
-//  * candidate: lowerTank.heatTransfer.states[1].T(start = 500.0)
-//  * candidate: lowerTank.medium.state.T(start = 500.0)
-//  * candidate: lowerTank.medium.T(start = lowerTank.T_start)
-// => select value from lowerTank.medium.T(start = lowerTank.T_start) for variable: lowerTank.heatTransfer.Ts[1]
-// Warning: Alias set with different nominal values
-//  * candidate: lowerTank.medium.T(nominal = 500.0)
-//  * candidate: lowerTank.medium.state.T(nominal = 500.0)
-//  * candidate: lowerTank.heatTransfer.states[1].T(nominal = 500.0)
-//  * candidate: lowerTank.heatTransfer.heatPorts[1].T(nominal = 300.0)
-//  * candidate: lowerTank.heatTransfer.Ts[1](nominal = 300.0)
-// => select value from lowerTank.heatTransfer.Ts[1](nominal = 300.0) for variable: lowerTank.heatTransfer.Ts[1]
-// Warning: Alias set with several free start values
-//  * candidate: upperTank.heatTransfer.states[1].T(start = 500.0)
-//  * candidate: upperTank.medium.state.T(start = 500.0)
-//  * candidate: upperTank.medium.T(start = upperTank.T_start)
-// => select value from upperTank.medium.T(start = upperTank.T_start) for variable: upperTank.heatTransfer.Ts[1]
-// Warning: Alias set with different nominal values
-//  * candidate: upperTank.medium.T(nominal = 500.0)
-//  * candidate: upperTank.medium.state.T(nominal = 500.0)
-//  * candidate: upperTank.heatTransfer.states[1].T(nominal = 500.0)
-//  * candidate: upperTank.heatTransfer.heatPorts[1].T(nominal = 300.0)
-//  * candidate: upperTank.heatTransfer.Ts[1](nominal = 300.0)
-// => select value from upperTank.heatTransfer.Ts[1](nominal = 300.0) for variable: upperTank.heatTransfer.Ts[1]
 // Warning: There are iteration variables with default zero start attribute. Use +d=initialization for more information.
 // "true
 // "

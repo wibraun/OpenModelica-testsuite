@@ -30,13 +30,13 @@ runScript(modelTesting);getErrorString();
 // Result file: Modelica.Media.Examples.WaterIF97_res.mat
 // Files Equal!
 // Warning: Alias set with several free start values
-//  * candidate: medium.d(start = 999.0)
-//  * candidate: medium.state.d(start = 150.0)
-// => select value from medium.d(start = 999.0) for variable: medium.d
-// Warning: Alias set with several free start values
 //  * candidate: medium.T(start = 275.0)
 //  * candidate: medium.state.T(start = 500.0)
-// => select value from medium.T(start = 275.0) for variable: medium.T
+// => select value from medium.T(start = 275.0) for variable: T$$PModelica$PMedia$PExamples$PWaterIF97$PMedium$Ptemperature_ph15
+// Warning: Alias set with several free start values
+//  * candidate: medium.d(start = 999.0)
+//  * candidate: medium.state.d(start = 150.0)
+// => select value from medium.d(start = 999.0) for variable: d$$PModelica$PMedia$PExamples$PWaterIF97$PMedium$Pdensity_ph14
 // Warning: Alias set with different nominal values
 //  * candidate: medium.sat.psat(nominal = 1000000.0)
 //  * candidate: medium.state.p(nominal = 1000000.0)

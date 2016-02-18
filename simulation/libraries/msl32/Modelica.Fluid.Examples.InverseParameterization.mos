@@ -77,6 +77,20 @@ runScript(modelTesting);getErrorString();
 //  * candidate: pump.medium.p(nominal = 100000.0)
 // => select value from pump.medium.p(nominal = 100000.0) for variable: pump.medium.p
 // Warning: Alias set with several free start values
+//  * candidate: pump.heatTransfer.states[1].T(start = 500.0)
+//  * candidate: pump.medium.state.T(start = 500.0)
+//  * candidate: pump.monitoring.state.T(start = 500.0)
+//  * candidate: pump.medium.T(start = pump.T_start)
+// => select value from pump.medium.T(start = pump.T_start) for variable: T$$PModelica$PFluid$PMachines$PControlledPump$pump$PHeatTransfer$pump$heatTransfer$PMedium$Ptemperature109
+// Warning: Alias set with different nominal values
+//  * candidate: pump.heatTransfer.heatPorts[1].T(nominal = 300.0)
+//  * candidate: pump.heatTransfer.Ts[1](nominal = 300.0)
+//  * candidate: pump.medium.T(nominal = 500.0)
+//  * candidate: pump.monitoring.state.T(nominal = 500.0)
+//  * candidate: pump.medium.state.T(nominal = 500.0)
+//  * candidate: pump.heatTransfer.states[1].T(nominal = 500.0)
+// => select value from pump.heatTransfer.Ts[1](nominal = 300.0) for variable: T$$PModelica$PFluid$PMachines$PControlledPump$pump$PHeatTransfer$pump$heatTransfer$PMedium$Ptemperature109
+// Warning: Alias set with several free start values
 //  * candidate: pump.medium.h(start = pump.h_start)
 //  * candidate: pump.port_b.h_outflow(start = 100000.0)
 //  * candidate: pump.port_a.h_outflow(start = 100000.0)
@@ -84,20 +98,6 @@ runScript(modelTesting);getErrorString();
 //  * candidate: pump.monitoring.state.h(start = 100000.0)
 //  * candidate: pump.heatTransfer.states[1].h(start = 100000.0)
 // => select value from pump.medium.h(start = pump.h_start) for variable: pump.medium.h
-// Warning: Alias set with several free start values
-//  * candidate: pump.heatTransfer.states[1].T(start = 500.0)
-//  * candidate: pump.medium.state.T(start = 500.0)
-//  * candidate: pump.monitoring.state.T(start = 500.0)
-//  * candidate: pump.medium.T(start = pump.T_start)
-// => select value from pump.medium.T(start = pump.T_start) for variable: pump.heatTransfer.Ts[1]
-// Warning: Alias set with different nominal values
-//  * candidate: pump.medium.T(nominal = 500.0)
-//  * candidate: pump.monitoring.state.T(nominal = 500.0)
-//  * candidate: pump.medium.state.T(nominal = 500.0)
-//  * candidate: pump.heatTransfer.states[1].T(nominal = 500.0)
-//  * candidate: pump.heatTransfer.heatPorts[1].T(nominal = 300.0)
-//  * candidate: pump.heatTransfer.Ts[1](nominal = 300.0)
-// => select value from pump.heatTransfer.Ts[1](nominal = 300.0) for variable: pump.heatTransfer.Ts[1]
 //
 // "true
 // "
