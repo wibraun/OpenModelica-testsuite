@@ -1,0 +1,31 @@
+// name: inlineArrayRecord
+// status: correct
+
+loadString("
+model foo
+  record A
+    Real x;
+    Real y;
+  end A;
+
+  function f
+    input A[2] x;
+    output Real y;
+  algorithm
+     y := x[1].x + x[1].y + x[2].x + x[2].y
+    annotation(Inline=true); 
+  end f;
+
+  Real a;
+  A[2] b = {A(time, time^2), A(time^3, time^4)};
+equation
+ a = f(b);
+end foo;
+");
+getErrorString();
+
+setCommandLineOptions("+d=dumpBackendInline");
+getErrorString();
+simulate(foo);
+getErrorString();
+val(a,{0,0.5,1.0}); // 0, 4
