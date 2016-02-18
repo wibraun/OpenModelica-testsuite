@@ -31,13 +31,13 @@ res := OpenModelica.Scripting.compareSimulationResults("Pendulum.Pendulum2_res.m
 //  * Number of equations: 1228
 //  * Number of variables: 1228
 // Notification: Model statistics after passing the back-end for initialization:
-//  * Number of independent subsystems: 677
+//  * Number of independent subsystems: 701
 //  * Number of states: 0 ('+d=stateselection' for list of states)
 //  * Number of discrete variables: 27 ('+d=discreteinfo' for list of discrete vars)
 //  * Number of discrete states: 0 ('+d=discreteinfo' for list of discrete states)
 //  * Top-level inputs: 0
-// Notification: Strong component statistics for initialization (754):
-//  * Single equations (assignments): 753
+// Notification: Strong component statistics for initialization (778):
+//  * Single equations (assignments): 777
 //  * Array equations: 0
 //  * Algorithm blocks: 0
 //  * Record equations: 0

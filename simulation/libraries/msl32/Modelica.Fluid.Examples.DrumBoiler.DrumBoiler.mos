@@ -64,10 +64,10 @@ runScript(modelTesting);getErrorString();
 // Warning: Alias set with different nominal values
 //  * candidate: furnace.port.T(nominal = 300.0)
 //  * candidate: evaporator.heatPort.T(nominal = 300.0)
-//  * candidate: evaporator.sat.Tsat(nominal = 500.0)
-//  * candidate: evaporator.T(nominal = 500.0)
 //  * candidate: evaporator.T_D(nominal = 500.0)
-// => select value from evaporator.T_D(nominal = 500.0) for variable: evaporator.T_D
+//  * candidate: evaporator.T(nominal = 500.0)
+//  * candidate: evaporator.sat.Tsat(nominal = 500.0)
+// => select value from evaporator.T_D(nominal = 500.0) for variable: T$$PModelica$PFluid$PExamples$PDrumBoiler$PBaseClasses$PEquilibriumDrumBoiler$evaporator$PMedium$PsaturationTemperature14
 //
 // "true
 // "
