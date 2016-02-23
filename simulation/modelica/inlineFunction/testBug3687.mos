@@ -1,6 +1,9 @@
 // name: ticket3687
 // status: correct
 
+// use new inline method
+setCommandLineOptions("+inlineMethod=append");
+
 loadString("
 model foo
   function f
@@ -40,6 +43,7 @@ val(w,{0.0,1.0});
 getErrorString();
 
 // Result:
+// true
 // true
 // ""
 // record SimulationResult

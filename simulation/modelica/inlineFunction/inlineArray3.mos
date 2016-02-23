@@ -1,6 +1,9 @@
 // name: inlineArray3
 // status: correct
 
+// use new inline method
+setCommandLineOptions("+inlineMethod=append");
+
 loadString("
 model foo
   function f
@@ -60,3 +63,287 @@ getErrorString();
 simulate(foo);
 getErrorString();
 val(h,{0,0.5,1.0}); // 0, -17.139
+
+// Result:
+// true
+// true
+// ""
+// true
+// ""
+//
+// ############ BackendInline Method: append ############
+// ########################################
+// Result DAE after Inline. (1 partitions)
+// ########################################
+//
+//
+// unknown partition
+// ========================================
+//
+// Variables (93)
+// ========================================
+// 1: y$$Pfoo$Pf24[1]:VARIABLE()  type: Real [7]
+// 2: y$$Pfoo$Pf24[2]:VARIABLE()  type: Real [7]
+// 3: y$$Pfoo$Pf24[3]:VARIABLE()  type: Real [7]
+// 4: y$$Pfoo$Pf24[4]:VARIABLE()  type: Real [7]
+// 5: y$$Pfoo$Pf24[5]:VARIABLE()  type: Real [7]
+// 6: y$$Pfoo$Pf24[6]:VARIABLE()  type: Real [7]
+// 7: y$$Pfoo$Pf24[7]:VARIABLE()  type: Real [7]
+// 8: tmpy$$Pfoo$Pf25:VARIABLE()  type: Real
+// 9: sumx$$Pfoo$Pf26:VARIABLE()  type: Real
+// 10: y$$Pfoo$Pf21[1]:VARIABLE()  type: Real [7]
+// 11: y$$Pfoo$Pf21[2]:VARIABLE()  type: Real [7]
+// 12: y$$Pfoo$Pf21[3]:VARIABLE()  type: Real [7]
+// 13: y$$Pfoo$Pf21[4]:VARIABLE()  type: Real [7]
+// 14: y$$Pfoo$Pf21[5]:VARIABLE()  type: Real [7]
+// 15: y$$Pfoo$Pf21[6]:VARIABLE()  type: Real [7]
+// 16: y$$Pfoo$Pf21[7]:VARIABLE()  type: Real [7]
+// 17: tmpy$$Pfoo$Pf22:VARIABLE()  type: Real
+// 18: sumx$$Pfoo$Pf23:VARIABLE()  type: Real
+// 19: y$$Pfoo$Pf18[1]:VARIABLE()  type: Real [7]
+// 20: y$$Pfoo$Pf18[2]:VARIABLE()  type: Real [7]
+// 21: y$$Pfoo$Pf18[3]:VARIABLE()  type: Real [7]
+// 22: y$$Pfoo$Pf18[4]:VARIABLE()  type: Real [7]
+// 23: y$$Pfoo$Pf18[5]:VARIABLE()  type: Real [7]
+// 24: y$$Pfoo$Pf18[6]:VARIABLE()  type: Real [7]
+// 25: y$$Pfoo$Pf18[7]:VARIABLE()  type: Real [7]
+// 26: tmpy$$Pfoo$Pf19:VARIABLE()  type: Real
+// 27: sumx$$Pfoo$Pf20:VARIABLE()  type: Real
+// 28: y$$Pfoo$Pf15[1]:VARIABLE()  type: Real [7]
+// 29: y$$Pfoo$Pf15[2]:VARIABLE()  type: Real [7]
+// 30: y$$Pfoo$Pf15[3]:VARIABLE()  type: Real [7]
+// 31: y$$Pfoo$Pf15[4]:VARIABLE()  type: Real [7]
+// 32: y$$Pfoo$Pf15[5]:VARIABLE()  type: Real [7]
+// 33: y$$Pfoo$Pf15[6]:VARIABLE()  type: Real [7]
+// 34: y$$Pfoo$Pf15[7]:VARIABLE()  type: Real [7]
+// 35: tmpy$$Pfoo$Pf16:VARIABLE()  type: Real
+// 36: sumx$$Pfoo$Pf17:VARIABLE()  type: Real
+// 37: y$$Pfoo$Pf12[1]:VARIABLE()  type: Real [7]
+// 38: y$$Pfoo$Pf12[2]:VARIABLE()  type: Real [7]
+// 39: y$$Pfoo$Pf12[3]:VARIABLE()  type: Real [7]
+// 40: y$$Pfoo$Pf12[4]:VARIABLE()  type: Real [7]
+// 41: y$$Pfoo$Pf12[5]:VARIABLE()  type: Real [7]
+// 42: y$$Pfoo$Pf12[6]:VARIABLE()  type: Real [7]
+// 43: y$$Pfoo$Pf12[7]:VARIABLE()  type: Real [7]
+// 44: tmpy$$Pfoo$Pf13:VARIABLE()  type: Real
+// 45: sumx$$Pfoo$Pf14:VARIABLE()  type: Real
+// 46: y$$Pfoo$Pf9[1]:VARIABLE()  type: Real [7]
+// 47: y$$Pfoo$Pf9[2]:VARIABLE()  type: Real [7]
+// 48: y$$Pfoo$Pf9[3]:VARIABLE()  type: Real [7]
+// 49: y$$Pfoo$Pf9[4]:VARIABLE()  type: Real [7]
+// 50: y$$Pfoo$Pf9[5]:VARIABLE()  type: Real [7]
+// 51: y$$Pfoo$Pf9[6]:VARIABLE()  type: Real [7]
+// 52: y$$Pfoo$Pf9[7]:VARIABLE()  type: Real [7]
+// 53: tmpy$$Pfoo$Pf10:VARIABLE()  type: Real
+// 54: sumx$$Pfoo$Pf11:VARIABLE()  type: Real
+// 55: y$$Pfoo$Pf6[1]:VARIABLE()  type: Real [7]
+// 56: y$$Pfoo$Pf6[2]:VARIABLE()  type: Real [7]
+// 57: y$$Pfoo$Pf6[3]:VARIABLE()  type: Real [7]
+// 58: y$$Pfoo$Pf6[4]:VARIABLE()  type: Real [7]
+// 59: y$$Pfoo$Pf6[5]:VARIABLE()  type: Real [7]
+// 60: y$$Pfoo$Pf6[6]:VARIABLE()  type: Real [7]
+// 61: y$$Pfoo$Pf6[7]:VARIABLE()  type: Real [7]
+// 62: tmpy$$Pfoo$Pf7:VARIABLE()  type: Real
+// 63: sumx$$Pfoo$Pf8:VARIABLE()  type: Real
+// 64: w[5]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 65: w[4]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 66: w[3]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 67: w[2]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 68: w[1]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 69: z[10]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 70: z[9]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 71: z[8]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 72: z[7]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 73: z[6]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 74: z[5]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 75: z[4]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 76: z[3]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 77: z[2]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 78: z[1]:VARIABLE(protected = true ) .foo, .Real type: Real [10]
+// 79: x[5]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 80: x[4]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 81: x[3]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 82: x[2]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 83: x[1]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 84: d:VARIABLE(protected = true ) .foo, .Real type: Real
+// 85: c:VARIABLE(protected = true ) .foo, .Real type: Real
+// 86: a[5]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 87: a[4]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 88: a[3]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 89: a[2]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 90: a[1]:VARIABLE(protected = true ) .foo, .Real type: Real [5]
+// 91: h:DISCRETE(start = 0.0 ) .foo, .Real type: Real
+// 92: v:STATE(1)(start = -1.0 fixed = true ) .foo, .Real type: Real
+// 93: y:STATE(1)(start = 1.0 fixed = true ) .foo, .Real type: Real
+//
+//
+// Equations (80, 93)
+// ========================================
+// 1/1 (10): z = {1.0 + sin(time), 1.0 + 2.0 * sin(time), 1.0 + 3.0 * sin(time), 1.0 + 4.0 * sin(time), 1.0 + 5.0 * sin(time), 1.0 + 6.0 * sin(time), 1.0 + 7.0 * sin(time), 1.0 + 8.0 * sin(time), 1.0 + 9.0 * sin(time), 1.0 + 10.0 * sin(time)}   [dynamic]
+// 2/11 (5): w = {z[1] / (z[1] + z[2] + z[3] + z[4] + z[5] + z[6] + z[7] + z[8] + z[9] + z[10]), z[2] ^ 2.0 / (z[1] + z[2] + z[3] + z[4] + z[5] + z[6] + z[7] + z[8] + z[9] + z[10]), z[3] ^ 3.0 / (z[1] + z[2] + z[3] + z[4] + z[5] + z[6] + z[7] + z[8] + z[9] + z[10]), z[4] ^ 4.0 / (z[1] + z[2] + z[3] + z[4] + z[5] + z[6] + z[7] + z[8] + z[9] + z[10]), z[5] ^ 5.0 / (z[1] + z[2] + z[3] + z[4] + z[5] + z[6] + z[7] + z[8] + z[9] + z[10])}   [dynamic]
+// 3/16 (1): x[1] = a[1] + a[2] + w[1]   [dynamic]
+// 4/17 (1): x[2] = z[1] + a[1]   [dynamic]
+// 5/18 (1): x[3] = 2.0 * z[2] + a[3] + a[1] + 2.0 * a[2] + z[1] + z[3] + z[4] + z[5] + z[6] + z[7] + z[8] + z[9] + z[10]   [dynamic]
+// 6/19 (1): x[4] = z[2] + a[3] + a[1] + 2.0 * a[2]   [dynamic]
+// 7/20 (1): x[5] = z[2] + x[3] + a[1] + 2.0 * a[2] + cos(a[1] + a[2] + a[3] + a[4] + a[5]) + w[2]   [dynamic]
+// 8/21 (1): a[1] = 0.1 * sum(y$$Pfoo$Pf6)   [dynamic]
+// 9/22 (1): a[2] = 0.1 * sum(y$$Pfoo$Pf9)   [dynamic]
+// 10/23 (1): a[3] = 0.1 * sum(y$$Pfoo$Pf12)   [dynamic]
+// 11/24 (1): a[4] = 0.1 * sum(y$$Pfoo$Pf15)   [dynamic]
+// 12/25 (1): a[5] = 0.1 * sum(y$$Pfoo$Pf18)   [dynamic]
+// 13/26 (1): c = exp(-sum(y$$Pfoo$Pf21)) + (-w[5]) - w[4] - w[3] - w[1] - w[2]   [dynamic]
+// 14/27 (1): d = w[1] + w[2] + w[3] + w[4] + w[5]   [dynamic]
+// 15/28 (1): der(y) = sin(c) + 0.1 * (a[1] + a[2] + a[3] + a[4] + a[5]) - cos(sum(y$$Pfoo$Pf24))   [dynamic]
+// 16/29 (1): der(v) = y - d   [dynamic]
+// 17/30 (1): when sample(1, 0.0, 0.1) then
+//   h := v + y + 0.1 * (sum(foo.f({z[1], z[2], z[3], z[4], z[5]})) + sum(foo.f({z[6], z[7], z[8], z[9], z[10]})));
+// end when;   [dynamic]
+// 18/31 (1): y$$Pfoo$Pf6[7] = exp((-sqrt(tmpy$$Pfoo$Pf7 / (y$$Pfoo$Pf6[1] + y$$Pfoo$Pf6[2] + y$$Pfoo$Pf6[3] + y$$Pfoo$Pf6[4] + y$$Pfoo$Pf6[5] + y$$Pfoo$Pf6[6]))) / tmpy$$Pfoo$Pf7)   [unknown]
+// 19/32 (1): tmpy$$Pfoo$Pf7 = 7.0 * sumx$$Pfoo$Pf8 ^ 2.0   [unknown]
+// 20/33 (1): y$$Pfoo$Pf6[6] = 6.0 * sumx$$Pfoo$Pf8 ^ 2.0   [unknown]
+// 21/34 (1): y$$Pfoo$Pf6[5] = 5.0 * sumx$$Pfoo$Pf8 ^ 2.0   [unknown]
+// 22/35 (1): y$$Pfoo$Pf6[4] = 4.0 * sumx$$Pfoo$Pf8 ^ 2.0   [unknown]
+// 23/36 (1): y$$Pfoo$Pf6[3] = 3.0 * sumx$$Pfoo$Pf8 ^ 2.0   [unknown]
+// 24/37 (1): y$$Pfoo$Pf6[2] = 2.0 * sumx$$Pfoo$Pf8 ^ 2.0   [unknown]
+// 25/38 (1): y$$Pfoo$Pf6[1] = sumx$$Pfoo$Pf8 ^ 2.0   [unknown]
+// 26/39 (1): sumx$$Pfoo$Pf8 = exp(-sqrt(x[1] + x[2] + x[3] + x[4] + x[5]))   [unknown]
+// 27/40 (1): y$$Pfoo$Pf9[7] = exp((-sqrt(tmpy$$Pfoo$Pf10 / (y$$Pfoo$Pf9[1] + y$$Pfoo$Pf9[2] + y$$Pfoo$Pf9[3] + y$$Pfoo$Pf9[4] + y$$Pfoo$Pf9[5] + y$$Pfoo$Pf9[6]))) / tmpy$$Pfoo$Pf10)   [unknown]
+// 28/41 (1): tmpy$$Pfoo$Pf10 = 7.0 * sumx$$Pfoo$Pf11 ^ 2.0   [unknown]
+// 29/42 (1): y$$Pfoo$Pf9[6] = 6.0 * sumx$$Pfoo$Pf11 ^ 2.0   [unknown]
+// 30/43 (1): y$$Pfoo$Pf9[5] = 5.0 * sumx$$Pfoo$Pf11 ^ 2.0   [unknown]
+// 31/44 (1): y$$Pfoo$Pf9[4] = 4.0 * sumx$$Pfoo$Pf11 ^ 2.0   [unknown]
+// 32/45 (1): y$$Pfoo$Pf9[3] = 3.0 * sumx$$Pfoo$Pf11 ^ 2.0   [unknown]
+// 33/46 (1): y$$Pfoo$Pf9[2] = 2.0 * sumx$$Pfoo$Pf11 ^ 2.0   [unknown]
+// 34/47 (1): y$$Pfoo$Pf9[1] = sumx$$Pfoo$Pf11 ^ 2.0   [unknown]
+// 35/48 (1): sumx$$Pfoo$Pf11 = exp(-sqrt(z[1] + z[2] + z[3] + z[4] + z[5]))   [unknown]
+// 36/49 (1): y$$Pfoo$Pf12[7] = exp((-sqrt(tmpy$$Pfoo$Pf13 / (y$$Pfoo$Pf12[1] + y$$Pfoo$Pf12[2] + y$$Pfoo$Pf12[3] + y$$Pfoo$Pf12[4] + y$$Pfoo$Pf12[5] + y$$Pfoo$Pf12[6]))) / tmpy$$Pfoo$Pf13)   [unknown]
+// 37/50 (1): tmpy$$Pfoo$Pf13 = 7.0 * sumx$$Pfoo$Pf14 ^ 2.0   [unknown]
+// 38/51 (1): y$$Pfoo$Pf12[6] = 6.0 * sumx$$Pfoo$Pf14 ^ 2.0   [unknown]
+// 39/52 (1): y$$Pfoo$Pf12[5] = 5.0 * sumx$$Pfoo$Pf14 ^ 2.0   [unknown]
+// 40/53 (1): y$$Pfoo$Pf12[4] = 4.0 * sumx$$Pfoo$Pf14 ^ 2.0   [unknown]
+// 41/54 (1): y$$Pfoo$Pf12[3] = 3.0 * sumx$$Pfoo$Pf14 ^ 2.0   [unknown]
+// 42/55 (1): y$$Pfoo$Pf12[2] = 2.0 * sumx$$Pfoo$Pf14 ^ 2.0   [unknown]
+// 43/56 (1): y$$Pfoo$Pf12[1] = sumx$$Pfoo$Pf14 ^ 2.0   [unknown]
+// 44/57 (1): sumx$$Pfoo$Pf14 = exp(-sqrt(z[6] + z[7] + z[8] + z[9] + z[10]))   [unknown]
+// 45/58 (1): y$$Pfoo$Pf15[7] = exp((-sqrt(tmpy$$Pfoo$Pf16 / (y$$Pfoo$Pf15[1] + y$$Pfoo$Pf15[2] + y$$Pfoo$Pf15[3] + y$$Pfoo$Pf15[4] + y$$Pfoo$Pf15[5] + y$$Pfoo$Pf15[6]))) / tmpy$$Pfoo$Pf16)   [unknown]
+// 46/59 (1): tmpy$$Pfoo$Pf16 = 7.0 * sumx$$Pfoo$Pf17 ^ 2.0   [unknown]
+// 47/60 (1): y$$Pfoo$Pf15[6] = 6.0 * sumx$$Pfoo$Pf17 ^ 2.0   [unknown]
+// 48/61 (1): y$$Pfoo$Pf15[5] = 5.0 * sumx$$Pfoo$Pf17 ^ 2.0   [unknown]
+// 49/62 (1): y$$Pfoo$Pf15[4] = 4.0 * sumx$$Pfoo$Pf17 ^ 2.0   [unknown]
+// 50/63 (1): y$$Pfoo$Pf15[3] = 3.0 * sumx$$Pfoo$Pf17 ^ 2.0   [unknown]
+// 51/64 (1): y$$Pfoo$Pf15[2] = 2.0 * sumx$$Pfoo$Pf17 ^ 2.0   [unknown]
+// 52/65 (1): y$$Pfoo$Pf15[1] = sumx$$Pfoo$Pf17 ^ 2.0   [unknown]
+// 53/66 (1): sumx$$Pfoo$Pf17 = exp(-sqrt(z[2] + z[3] + z[4] + z[5] + z[6]))   [unknown]
+// 54/67 (1): y$$Pfoo$Pf18[7] = exp((-sqrt(tmpy$$Pfoo$Pf19 / (y$$Pfoo$Pf18[1] + y$$Pfoo$Pf18[2] + y$$Pfoo$Pf18[3] + y$$Pfoo$Pf18[4] + y$$Pfoo$Pf18[5] + y$$Pfoo$Pf18[6]))) / tmpy$$Pfoo$Pf19)   [unknown]
+// 55/68 (1): tmpy$$Pfoo$Pf19 = 7.0 * sumx$$Pfoo$Pf20 ^ 2.0   [unknown]
+// 56/69 (1): y$$Pfoo$Pf18[6] = 6.0 * sumx$$Pfoo$Pf20 ^ 2.0   [unknown]
+// 57/70 (1): y$$Pfoo$Pf18[5] = 5.0 * sumx$$Pfoo$Pf20 ^ 2.0   [unknown]
+// 58/71 (1): y$$Pfoo$Pf18[4] = 4.0 * sumx$$Pfoo$Pf20 ^ 2.0   [unknown]
+// 59/72 (1): y$$Pfoo$Pf18[3] = 3.0 * sumx$$Pfoo$Pf20 ^ 2.0   [unknown]
+// 60/73 (1): y$$Pfoo$Pf18[2] = 2.0 * sumx$$Pfoo$Pf20 ^ 2.0   [unknown]
+// 61/74 (1): y$$Pfoo$Pf18[1] = sumx$$Pfoo$Pf20 ^ 2.0   [unknown]
+// 62/75 (1): sumx$$Pfoo$Pf20 = exp(-sqrt(z[3] + z[4] + z[5] + z[6] + z[7]))   [unknown]
+// 63/76 (1): y$$Pfoo$Pf21[7] = exp((-sqrt(tmpy$$Pfoo$Pf22 / (y$$Pfoo$Pf21[1] + y$$Pfoo$Pf21[2] + y$$Pfoo$Pf21[3] + y$$Pfoo$Pf21[4] + y$$Pfoo$Pf21[5] + y$$Pfoo$Pf21[6]))) / tmpy$$Pfoo$Pf22)   [unknown]
+// 64/77 (1): tmpy$$Pfoo$Pf22 = 7.0 * sumx$$Pfoo$Pf23 ^ 2.0   [unknown]
+// 65/78 (1): y$$Pfoo$Pf21[6] = 6.0 * sumx$$Pfoo$Pf23 ^ 2.0   [unknown]
+// 66/79 (1): y$$Pfoo$Pf21[5] = 5.0 * sumx$$Pfoo$Pf23 ^ 2.0   [unknown]
+// 67/80 (1): y$$Pfoo$Pf21[4] = 4.0 * sumx$$Pfoo$Pf23 ^ 2.0   [unknown]
+// 68/81 (1): y$$Pfoo$Pf21[3] = 3.0 * sumx$$Pfoo$Pf23 ^ 2.0   [unknown]
+// 69/82 (1): y$$Pfoo$Pf21[2] = 2.0 * sumx$$Pfoo$Pf23 ^ 2.0   [unknown]
+// 70/83 (1): y$$Pfoo$Pf21[1] = sumx$$Pfoo$Pf23 ^ 2.0   [unknown]
+// 71/84 (1): sumx$$Pfoo$Pf23 = exp(-sqrt(a[1] + a[2] + a[3] + a[4] + a[5]))   [unknown]
+// 72/85 (1): y$$Pfoo$Pf24[7] = exp((-sqrt(tmpy$$Pfoo$Pf25 / (y$$Pfoo$Pf24[1] + y$$Pfoo$Pf24[2] + y$$Pfoo$Pf24[3] + y$$Pfoo$Pf24[4] + y$$Pfoo$Pf24[5] + y$$Pfoo$Pf24[6]))) / tmpy$$Pfoo$Pf25)   [unknown]
+// 73/86 (1): tmpy$$Pfoo$Pf25 = 7.0 * sumx$$Pfoo$Pf26 ^ 2.0   [unknown]
+// 74/87 (1): y$$Pfoo$Pf24[6] = 6.0 * sumx$$Pfoo$Pf26 ^ 2.0   [unknown]
+// 75/88 (1): y$$Pfoo$Pf24[5] = 5.0 * sumx$$Pfoo$Pf26 ^ 2.0   [unknown]
+// 76/89 (1): y$$Pfoo$Pf24[4] = 4.0 * sumx$$Pfoo$Pf26 ^ 2.0   [unknown]
+// 77/90 (1): y$$Pfoo$Pf24[3] = 3.0 * sumx$$Pfoo$Pf26 ^ 2.0   [unknown]
+// 78/91 (1): y$$Pfoo$Pf24[2] = 2.0 * sumx$$Pfoo$Pf26 ^ 2.0   [unknown]
+// 79/92 (1): y$$Pfoo$Pf24[1] = sumx$$Pfoo$Pf26 ^ 2.0   [unknown]
+// 80/93 (1): sumx$$Pfoo$Pf26 = exp(-sqrt(x[1] + x[2] + x[3] + x[4] + x[5]))   [unknown]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// Incidence Matrix (row: equation)
+// ========================================
+// number of rows: 17
+// 1: 15 14 13 12 11 10 9 8 7 6
+// 2: 6 7 8 9 10 11 12 13 14 15 5 4 3 2 1
+// 3: 5 26 27 20
+// 4: 27 15 19
+// 5: 6 7 8 9 10 11 12 13 15 26 27 25 14 18
+// 6: 26 27 25 14 17
+// 7: 4 23 24 25 26 27 18 14 16
+// 8: 16 17 18 19 20 27
+// 9: 11 12 13 14 15 26
+// 10: 6 7 8 9 10 25
+// 11: 10 11 12 13 14 24
+// 12: 9 10 11 12 13 23
+// 13: 2 1 3 5 4 23 24 25 26 27 22
+// 14: 1 2 3 4 5 21
+// 15: 16 17 18 19 20 23 24 25 26 27 22 30
+// 16: 21 -30 29
+// 17: 6 7 8 9 10 11 12 13 14 15 -30 -29 28
+//
+// Transposed Incidence Matrix (row: variable)
+// ========================================
+// number of rows: 30
+// 1: 14 13 2
+// 2: 14 13 2
+// 3: 14 13 2
+// 4: 14 13 7 2
+// 5: 14 13 3 2
+// 6: 17 10 5 2 1
+// 7: 17 10 5 2 1
+// 8: 17 10 5 2 1
+// 9: 17 12 10 5 2 1
+// 10: 17 12 11 10 5 2 1
+// 11: 17 12 11 9 5 2 1
+// 12: 17 12 11 9 5 2 1
+// 13: 17 12 11 9 5 2 1
+// 14: 17 11 9 7 6 5 2 1
+// 15: 17 9 5 4 2 1
+// 16: 15 8 7
+// 17: 15 8 6
+// 18: 15 8 7 5
+// 19: 15 8 4
+// 20: 15 8 3
+// 21: 16 14
+// 22: 15 13
+// 23: 15 13 12 7
+// 24: 15 13 11 7
+// 25: 15 13 10 7 6 5
+// 26: 15 13 9 7 6 5 3
+// 27: 15 13 8 7 6 5 4 3
+// 28: 17
+// 29: -17 16
+// 30: -17 -16 15
+//
+// no matching
+//
+//
+// record SimulationResult
+//     resultFile = "foo_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'foo', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "assert            | debug   | Division by zero tmpy$$Pfoo$Pf7 / (y$$Pfoo$Pf6[1] + y$$Pfoo$Pf6[2] + y$$Pfoo$Pf6[3] + y$$Pfoo$Pf6[4] + y$$Pfoo$Pf6[5] + y$$Pfoo$Pf6[6])
+// assert            | debug   | Division by zero tmpy$$Pfoo$Pf7 / (y$$Pfoo$Pf6[1] + y$$Pfoo$Pf6[2] + y$$Pfoo$Pf6[3] + y$$Pfoo$Pf6[4] + y$$Pfoo$Pf6[5] + y$$Pfoo$Pf6[6])
+// assert            | debug   | Division by zero tmpy$$Pfoo$Pf7 / (y$$Pfoo$Pf6[1] + y$$Pfoo$Pf6[2] + y$$Pfoo$Pf6[3] + y$$Pfoo$Pf6[4] + y$$Pfoo$Pf6[5] + y$$Pfoo$Pf6[6])
+// assert            | debug   | Division by zero tmpy$$Pfoo$Pf7 / (y$$Pfoo$Pf6[1] + y$$Pfoo$Pf6[2] + y$$Pfoo$Pf6[3] + y$$Pfoo$Pf6[4] + y$$Pfoo$Pf6[5] + y$$Pfoo$Pf6[6])
+// stdout            | warning | While solving non-linear system an assertion failed during initialization.
+// |                 | |       | | The non-linear solver tries to solve the problem that could take some time.
+// |                 | |       | | It could help to provide better start-values for the iteration variables.
+// |                 | |       | | For more information simulate with -lv LOG_NLS
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. Use +d=initialization for more information.
+// Warning: There are iteration variables with default zero start attribute. Use +d=initialization for more information.
+// "
+// {0.04812243429093915,-2.749810335170811,-24.02379626652539}
+// endResult

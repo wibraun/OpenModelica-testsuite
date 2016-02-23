@@ -1,6 +1,9 @@
 // name: inlineFunction5
 // status: correct
 
+// use new inline method
+setCommandLineOptions("+inlineMethod=append");
+
 loadString("
 model foo
 
@@ -52,10 +55,11 @@ val(time,{0,0.5,1.0});
 val(y,{0,0.5,1.0});
 // Result:
 // true
+// true
 // ""
 // true
 //
-// ############ BackendInline ############
+// ############ BackendInline Method: append ############
 // ########################################
 // Result DAE after Inline. (1 partitions)
 // ########################################

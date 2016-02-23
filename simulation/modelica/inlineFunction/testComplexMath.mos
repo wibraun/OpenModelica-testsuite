@@ -1,6 +1,9 @@
 // name: testComplexMath
 // status: correct
 
+// use new inline method
+setCommandLineOptions("+inlineMethod=append");
+
 loadModel(Modelica);
 getErrorString();
 
@@ -30,12 +33,13 @@ val(z,{0,0.5,1.0});
 
 // Result:
 // true
+// true
 // ""
 // true
 // ""
 // true
 //
-// ############ BackendInline ############
+// ############ BackendInline Method: append ############
 // ########################################
 // Result DAE after Inline. (1 partitions)
 // ########################################

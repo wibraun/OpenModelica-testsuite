@@ -1,6 +1,9 @@
 // name: inlineArrayRecord
 // status: correct
 
+// use new inline method
+setCommandLineOptions("+inlineMethod=append");
+
 loadString("
 model foo
   record A
@@ -29,3 +32,75 @@ getErrorString();
 simulate(foo);
 getErrorString();
 val(a,{0,0.5,1.0}); // 0, 4
+
+// Result:
+// true
+// true
+// ""
+// true
+// ""
+//
+// ############ BackendInline Method: append ############
+// ########################################
+// Result DAE after Inline. (1 partitions)
+// ########################################
+//
+//
+// unknown partition
+// ========================================
+//
+// Variables (5)
+// ========================================
+// 1: b[2].y:VARIABLE() .foo, .foo.A, .Real type: Real [2]
+// 2: b[2].x:VARIABLE() .foo, .foo.A, .Real type: Real [2]
+// 3: b[1].y:VARIABLE() .foo, .foo.A, .Real type: Real [2]
+// 4: b[1].x:VARIABLE() .foo, .foo.A, .Real type: Real [2]
+// 5: a:VARIABLE() .foo, .Real type: Real
+//
+//
+// Equations (5, 5)
+// ========================================
+// 1/1 (1): b[1].x = time   [dynamic]
+// 2/2 (1): b[1].y = time ^ 2.0   [dynamic]
+// 3/3 (1): b[2].x = time ^ 3.0   [dynamic]
+// 4/4 (1): b[2].y = time ^ 4.0   [dynamic]
+// 5/5 (1): a = foo.f({b[1], b[2]})   [dynamic]
+//
+//
+// Simple Equations (0, 0)
+// ========================================
+//
+//
+// State Sets
+// ========================================
+//
+//
+// Incidence Matrix (row: equation)
+// ========================================
+// number of rows: 5
+// 1: 4
+// 2: 3
+// 3: 2
+// 4: 1
+// 5: 2 1 4 3 5
+//
+// Transposed Incidence Matrix (row: variable)
+// ========================================
+// number of rows: 5
+// 1: 5 4
+// 2: 5 3
+// 3: 5 2
+// 4: 5 1
+// 5: 5
+//
+// no matching
+//
+//
+// record SimulationResult
+//     resultFile = "foo_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'foo', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = ""
+// end SimulationResult;
+// ""
+// {0.0,0.9375,4.0}
+// endResult

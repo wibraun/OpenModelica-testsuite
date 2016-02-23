@@ -1,6 +1,10 @@
 TEST = ../../../rtest -v
 
 TESTFILES = \
+inlineArray1.mos \
+inlineArray2.mos \
+inlineArray3.mos \
+inlineArrayRecord.mos \
 inlineFunction1.mos \
 inlineFunction2.mos \
 inlineFunction3.mos \
