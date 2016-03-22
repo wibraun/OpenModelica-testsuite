@@ -2,7 +2,7 @@
 // status: correct
 
 // use new inline method
-setCommandLineOption("+inlineMethod=append");
+setCommandLineOptions("+inlineMethod=append");
 
 loadString("
 model foo
@@ -31,13 +31,12 @@ getErrorString();
 val(time,{0,0.5,1.0});
 val(y,{0,0.5,1.0});
 // Result:
-//
 // true
-// "[simulation/modelica/inlineFunction/inlineFunction8.mos:5:1-5:45:writable] Error: Class setCommandLineOption not found in scope <global scope> (looking for a function or record).
-// "
+// true
+// ""
 // true
 //
-// ############ BackendInline ############
+// ############ BackendInline Method: append ############
 // ########################################
 // Result DAE after Inline. (1 partitions)
 // ########################################
@@ -46,16 +45,22 @@ val(y,{0,0.5,1.0});
 // unknown partition
 // ========================================
 //
-// Variables (2)
+// Variables (5)
 // ========================================
-// 1: z:VARIABLE() .foo, .Real type: Real
-// 2: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
+// 1: x$$Pfoo$Pf10:VARIABLE()  type: Real
+// 2: y1$$Pfoo$Pf11:VARIABLE()  type: Real
+// 3: z$$Pfoo$Pf12:VARIABLE()  type: Real
+// 4: z:VARIABLE() .foo, .Real type: Real
+// 5: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
 //
 //
-// Equations (2, 2)
+// Equations (5, 5)
 // ========================================
 // 1/1 (1): z = cos(time)   [binding]
-// 2/2 (1): 1.0 + der(y) = 0.1 * sqrt((2.0 * (7.0 + 2.0 * z)) ^ 2.0 * (7.0 + 2.0 * z) * z) / (7.0 + 2.0 * z)   [dynamic]
+// 2/2 (1): 1.0 + der(y) = x$$Pfoo$Pf10   [dynamic]
+// 3/3 (1): x$$Pfoo$Pf10 = 0.1 * sqrt(z$$Pfoo$Pf12 ^ 2.0 * y1$$Pfoo$Pf11 * z) / y1$$Pfoo$Pf11   [unknown]
+// 4/4 (1): z$$Pfoo$Pf12 = 2.0 * y1$$Pfoo$Pf11   [unknown]
+// 5/5 (1): y1$$Pfoo$Pf11 = 7.0 + 2.0 * z   [unknown]
 //
 //
 // Simple Equations (0, 0)

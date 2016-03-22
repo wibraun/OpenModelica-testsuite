@@ -2,7 +2,7 @@
 // status: correct
 
 // use new inline method
-setCommandLineOption("+inlineMethod=append");
+setCommandLineOptions("+inlineMethod=append");
 
 loadString("
 model foo
@@ -43,13 +43,12 @@ getErrorString();
 val(time,{0,0.5,1.0});
 val(y,{0,0.5,1.0});
 // Result:
-//
 // true
-// "[simulation/modelica/inlineFunction/inlineFunction4.mos:5:1-5:45:writable] Error: Class setCommandLineOption not found in scope <global scope> (looking for a function or record).
-// "
+// true
+// ""
 // true
 //
-// ############ BackendInline ############
+// ############ BackendInline Method: append ############
 // ########################################
 // Result DAE after Inline. (1 partitions)
 // ########################################
@@ -58,23 +57,39 @@ val(y,{0,0.5,1.0});
 // unknown partition
 // ========================================
 //
-// Variables (7)
+// Variables (15)
 // ========================================
-// 1: z[3]:VARIABLE() .foo, .Real type: Real [3]
-// 2: z[2]:VARIABLE() .foo, .Real type: Real [3]
-// 3: z[1]:VARIABLE() .foo, .Real type: Real [3]
-// 4: y2:VARIABLE() .foo, .Real type: Real
-// 5: y1:VARIABLE() .foo, .Real type: Real
-// 6: dy:VARIABLE() .foo, .Real type: Real
-// 7: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
+// 1: y$$Pfoo$Pf3:VARIABLE()  type: Real
+// 2: y1$$Pfoo$Pf4:VARIABLE()  type: Real
+// 3: a$$Pfoo$Pf5[1]:VARIABLE()  type: Real [2]
+// 4: a$$Pfoo$Pf5[2]:VARIABLE()  type: Real [2]
+// 5: y$$Pfoo$Pf0:VARIABLE()  type: Real
+// 6: y1$$Pfoo$Pf1:VARIABLE()  type: Real
+// 7: a$$Pfoo$Pf2[1]:VARIABLE()  type: Real [2]
+// 8: a$$Pfoo$Pf2[2]:VARIABLE()  type: Real [2]
+// 9: z[3]:VARIABLE() .foo, .Real type: Real [3]
+// 10: z[2]:VARIABLE() .foo, .Real type: Real [3]
+// 11: z[1]:VARIABLE() .foo, .Real type: Real [3]
+// 12: y2:VARIABLE() .foo, .Real type: Real
+// 13: y1:VARIABLE() .foo, .Real type: Real
+// 14: dy:VARIABLE() .foo, .Real type: Real
+// 15: y:STATE(1)(start = 0.0 fixed = true ) .foo, .Real type: Real
 //
 //
-// Equations (4, 7)
+// Equations (12, 15)
 // ========================================
 // 1/1 (1): dy = der(y)   [binding]
 // 2/2 (3): z = {time, cos(time), exp(-time)}   [dynamic]
-// 3/5 (1): (1.0 + dy, _) = foo.f(foo.A(5.0 + time, 3.0), {z[1], z[2], z[3]})   [dynamic]
-// 4/6 (2): (y1, y2) = foo.f(foo.A(5.0 + time, 3.0), {z[1], z[2], z[3]})   [dynamic]
+// 3/5 (1): (1.0 + dy, _) = (y$$Pfoo$Pf0, y1$$Pfoo$Pf1)   [dynamic]
+// 4/6 (2): (y1, y2) = (y$$Pfoo$Pf3, y1$$Pfoo$Pf4)   [dynamic]
+// 5/8 (1): y1$$Pfoo$Pf1 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * 3.0 + y$$Pfoo$Pf0 + sum({z[1], z[2], z[3]})   [unknown]
+// 6/9 (1): y$$Pfoo$Pf0 = (a$$Pfoo$Pf2[1] + a$$Pfoo$Pf2[2]) * (5.0 + time) + sum({z[1], z[2], z[3]})   [unknown]
+// 7/10 (1): a$$Pfoo$Pf2[2] = 1.0   [unknown]
+// 8/11 (1): a$$Pfoo$Pf2[1] = 1.0   [unknown]
+// 9/12 (1): y1$$Pfoo$Pf4 = (a$$Pfoo$Pf5[1] + a$$Pfoo$Pf5[2]) * 3.0 + y$$Pfoo$Pf3 + sum({z[1], z[2], z[3]})   [unknown]
+// 10/13 (1): y$$Pfoo$Pf3 = (a$$Pfoo$Pf5[1] + a$$Pfoo$Pf5[2]) * (5.0 + time) + sum({z[1], z[2], z[3]})   [unknown]
+// 11/14 (1): a$$Pfoo$Pf5[2] = 1.0   [unknown]
+// 12/15 (1): a$$Pfoo$Pf5[1] = 1.0   [unknown]
 //
 //
 // Simple Equations (0, 0)
@@ -107,17 +122,12 @@ val(y,{0,0.5,1.0});
 // no matching
 //
 //
-// Expression.generateCrefsExpFromExp: fail for1.0 + dy
 // record SimulationResult
-//     resultFile = "",
+//     resultFile = "foo_res.mat",
 //     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'foo', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
-//     messages = "Failed to build model: foo"
+//     messages = ""
 // end SimulationResult;
-// "[SimCode/SimCodeUtil.mo:0:0-0:0:writable] Error: Internal error function createNonlinearResidualEquationsComplex failed for: (1.0 + dy, _) = foo.f(foo.A(5.0 + time, 3.0), {z[1], z[2], z[3]})
-// [<interactive>:29:2-29:34:writable] Error: Internal error function createNonlinearResidualEquations failed for equation: (1.0 + dy, _) = foo.f(foo.A(5.0 + time, 3.0), {z[1], z[2], z[3]})
-// [SimCode/SimCodeUtil.mo:0:0-0:0:writable] Error: Internal error complex equations currently only supported on form v = functioncall(...). Equation: (1.0 + dy, _) = foo.f(foo.A(5.0 + time, 3.0), {z[1], z[2], z[3]}) solve for {dy}
-// [SimCode/SimCodeUtil.mo:0:0-0:0:writable] Error: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed]
-// "
-//
-//
+// ""
+// {0.0,0.5,1.0}
+// {0.0,5.74789373727783,11.97359730977421}
 // endResult

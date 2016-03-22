@@ -139,4 +139,19 @@ package linear_system
     A * x = b;
   end problem3;
 
+  model problem4 "simple const random dense linear system"
+    parameter Integer N = 2;
+    parameter Integer seed[3] = {12,1627,7218};
+    Real x[N,1];
+    Real x_res[N,1];
+    Real A[N,N] = getMatrix1(N, seed);
+    Real b[N,1] = getRHS(N, seed);
+    Real z = sin(time);
+  equation
+    x_res = A*x - b;
+    A*x = b;
+  end problem4;
+
+
+
 end linear_system;
