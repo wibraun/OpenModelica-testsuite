@@ -27,6 +27,7 @@ compareVars :=
    "loadInertiaM.phi",
    "loadInertiaM.w"
 };
+setCommandLineOptions("+removeSimpleEquations=allAcausal"); getErrorString();
 
 runScript(modelTesting);getErrorString();
 

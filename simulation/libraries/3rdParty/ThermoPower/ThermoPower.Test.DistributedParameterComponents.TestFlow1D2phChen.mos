@@ -18,59 +18,59 @@ simulate(ThermoPower.Test.DistributedParameterComponents.TestFlow1D2phChen); get
 // |                 | |       | | For more information simulate with -lv LOG_NLS
 // "
 // end SimulationResult;
-// "Warning: Alias set with several free start values
+// "Warning: Alias set with different nominal values
+//  * candidate: htFluid.fluidside.T[8](nominal = 300.0)
+//  * candidate: hex.wall.T[8](nominal = 300.0)
+//  * candidate: hex.T[8](nominal = 500.0)
+//  * candidate: hex.fluidState[8].T(nominal = 500.0)
+// => select value from hex.T[8](nominal = 500.0) for variable: T$$PThermoPower$PWater$PFlow1D2phChen$hex$PMedium$Ptemperature200
+// Warning: Alias set with different nominal values
+//  * candidate: htFluid.fluidside.T[7](nominal = 300.0)
+//  * candidate: hex.wall.T[7](nominal = 300.0)
+//  * candidate: hex.T[7](nominal = 500.0)
+//  * candidate: hex.fluidState[7].T(nominal = 500.0)
+// => select value from hex.T[7](nominal = 500.0) for variable: T$$PThermoPower$PWater$PFlow1D2phChen$hex$PMedium$Ptemperature196
+// Warning: Alias set with different nominal values
+//  * candidate: htFluid.fluidside.T[6](nominal = 300.0)
+//  * candidate: hex.wall.T[6](nominal = 300.0)
+//  * candidate: hex.T[6](nominal = 500.0)
+//  * candidate: hex.fluidState[6].T(nominal = 500.0)
+// => select value from hex.T[6](nominal = 500.0) for variable: T$$PThermoPower$PWater$PFlow1D2phChen$hex$PMedium$Ptemperature192
+// Warning: Alias set with different nominal values
+//  * candidate: htFluid.fluidside.T[5](nominal = 300.0)
+//  * candidate: hex.wall.T[5](nominal = 300.0)
+//  * candidate: hex.T[5](nominal = 500.0)
+//  * candidate: hex.fluidState[5].T(nominal = 500.0)
+// => select value from hex.T[5](nominal = 500.0) for variable: T$$PThermoPower$PWater$PFlow1D2phChen$hex$PMedium$Ptemperature188
+// Warning: Alias set with different nominal values
+//  * candidate: htFluid.fluidside.T[4](nominal = 300.0)
+//  * candidate: hex.wall.T[4](nominal = 300.0)
+//  * candidate: hex.T[4](nominal = 500.0)
+//  * candidate: hex.fluidState[4].T(nominal = 500.0)
+// => select value from hex.T[4](nominal = 500.0) for variable: T$$PThermoPower$PWater$PFlow1D2phChen$hex$PMedium$Ptemperature184
+// Warning: Alias set with different nominal values
+//  * candidate: htFluid.fluidside.T[3](nominal = 300.0)
+//  * candidate: hex.wall.T[3](nominal = 300.0)
+//  * candidate: hex.T[3](nominal = 500.0)
+//  * candidate: hex.fluidState[3].T(nominal = 500.0)
+// => select value from hex.T[3](nominal = 500.0) for variable: T$$PThermoPower$PWater$PFlow1D2phChen$hex$PMedium$Ptemperature180
+// Warning: Alias set with different nominal values
+//  * candidate: htFluid.fluidside.T[2](nominal = 300.0)
+//  * candidate: hex.wall.T[2](nominal = 300.0)
+//  * candidate: hex.T[2](nominal = 500.0)
+//  * candidate: hex.fluidState[2].T(nominal = 500.0)
+// => select value from hex.T[2](nominal = 500.0) for variable: T$$PThermoPower$PWater$PFlow1D2phChen$hex$PMedium$Ptemperature176
+// Warning: Alias set with different nominal values
+//  * candidate: htFluid.fluidside.T[1](nominal = 300.0)
+//  * candidate: hex.wall.T[1](nominal = 300.0)
+//  * candidate: hex.T[1](nominal = 500.0)
+//  * candidate: hex.fluidState[1].T(nominal = 500.0)
+// => select value from hex.T[1](nominal = 500.0) for variable: T$$PThermoPower$PWater$PFlow1D2phChen$hex$PMedium$Ptemperature172
+// Warning: Alias set with several free start values
 //  * candidate: hex.h[1](start = hex.hstart[1])
 //  * candidate: Source.flange.h_outflow(start = 100000.0)
 //  * candidate: hex.fluidState[1].h(start = 100000.0)
 // => select value from hex.h[1](start = hex.hstart[1]) for variable: hex.h[1]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.fluidState[8].T(nominal = 500.0)
-//  * candidate: htFluid.fluidside.T[8](nominal = 300.0)
-//  * candidate: hex.wall.T[8](nominal = 300.0)
-//  * candidate: hex.T[8](nominal = 500.0)
-// => select value from hex.T[8](nominal = 500.0) for variable: hex.T[8]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.fluidState[7].T(nominal = 500.0)
-//  * candidate: htFluid.fluidside.T[7](nominal = 300.0)
-//  * candidate: hex.wall.T[7](nominal = 300.0)
-//  * candidate: hex.T[7](nominal = 500.0)
-// => select value from hex.T[7](nominal = 500.0) for variable: hex.T[7]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.fluidState[6].T(nominal = 500.0)
-//  * candidate: htFluid.fluidside.T[6](nominal = 300.0)
-//  * candidate: hex.wall.T[6](nominal = 300.0)
-//  * candidate: hex.T[6](nominal = 500.0)
-// => select value from hex.T[6](nominal = 500.0) for variable: hex.T[6]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.fluidState[5].T(nominal = 500.0)
-//  * candidate: htFluid.fluidside.T[5](nominal = 300.0)
-//  * candidate: hex.wall.T[5](nominal = 300.0)
-//  * candidate: hex.T[5](nominal = 500.0)
-// => select value from hex.T[5](nominal = 500.0) for variable: hex.T[5]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.fluidState[4].T(nominal = 500.0)
-//  * candidate: htFluid.fluidside.T[4](nominal = 300.0)
-//  * candidate: hex.wall.T[4](nominal = 300.0)
-//  * candidate: hex.T[4](nominal = 500.0)
-// => select value from hex.T[4](nominal = 500.0) for variable: hex.T[4]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.fluidState[3].T(nominal = 500.0)
-//  * candidate: htFluid.fluidside.T[3](nominal = 300.0)
-//  * candidate: hex.wall.T[3](nominal = 300.0)
-//  * candidate: hex.T[3](nominal = 500.0)
-// => select value from hex.T[3](nominal = 500.0) for variable: hex.T[3]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.fluidState[2].T(nominal = 500.0)
-//  * candidate: htFluid.fluidside.T[2](nominal = 300.0)
-//  * candidate: hex.wall.T[2](nominal = 300.0)
-//  * candidate: hex.T[2](nominal = 500.0)
-// => select value from hex.T[2](nominal = 500.0) for variable: hex.T[2]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.fluidState[1].T(nominal = 500.0)
-//  * candidate: htFluid.fluidside.T[1](nominal = 300.0)
-//  * candidate: hex.wall.T[1](nominal = 300.0)
-//  * candidate: hex.T[1](nominal = 500.0)
-// => select value from hex.T[1](nominal = 500.0) for variable: hex.T[1]
 // Warning: Alias set with several free start values
 //  * candidate: hex.p(start = hex.pstart)
 //  * candidate: hex.outfl.p(start = 5000000.0)
@@ -122,14 +122,6 @@ simulate(ThermoPower.Test.DistributedParameterComponents.TestFlow1D2phChen); get
 //  * candidate: hex.fluidState[2].h(start = 100000.0)
 //  * candidate: hex.infl.h_outflow(start = hex.hstartin)
 // => select value from hex.htilde[1](start = hex.hstart[2]) for variable: hex.htilde[1]
-// Warning: Alias set with different nominal values
-//  * candidate: hex.dew.d(nominal = 500.0)
-//  * candidate: hex.rhov(nominal = 5.0)
-// => select value from hex.rhov(nominal = 5.0) for variable: hex.rhov
-// Warning: Alias set with different nominal values
-//  * candidate: hex.bubble.d(nominal = 500.0)
-//  * candidate: hex.rhol(nominal = 1000.0)
-// => select value from hex.rhol(nominal = 1000.0) for variable: hex.rhol
 // Warning: Alias set with several free start values
 //  * candidate: hex.p(start = hex.pstart)
 //  * candidate: Source.flange.p(start = 5000000.0)

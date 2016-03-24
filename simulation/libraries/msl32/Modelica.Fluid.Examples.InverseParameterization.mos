@@ -98,6 +98,7 @@ runScript(modelTesting);getErrorString();
 //  * candidate: pump.monitoring.state.h(start = 100000.0)
 //  * candidate: pump.heatTransfer.states[1].h(start = 100000.0)
 // => select value from pump.medium.h(start = pump.h_start) for variable: pump.medium.h
+// Warning: There are iteration variables with default zero start attribute. Use +d=initialization for more information.
 //
 // "true
 // "
