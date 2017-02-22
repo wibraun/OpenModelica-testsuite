@@ -1,0 +1,63 @@
+// name:     adolcTestcase2
+// keywords: adolc derivatives
+// status: correct
+// teardown_command: rm -rf case2* output.log
+//
+//
+//
+
+loadString("
+  model case2
+    function f1
+		  input Real x;
+      output Real y;
+    algorithm
+      y := sin(x)+cos(x);
+      y := x+y;
+    end f1;
+    Real y(start=1);
+  equation
+    der(y) = f1(y);
+  end case2;
+
+  model case2_1
+    function f1
+		  input Real x;
+      input Integer i;
+      output Real y;
+    protected 
+      Real z;
+    algorithm
+      y := sin(x)+cos(x);
+      if i > 0 then 
+        z := y*x;
+        y := tan(z);
+      else
+        y := x+y;
+      end if;
+      annotation(noDerivative(i = f(y)));
+    end f1;
+    function f2
+      input Real x;
+      output Integer i;
+    algorithm
+      i := if x > 0.5 then 1 else 0;
+    end f2;
+    Real y(start=0.1);
+  equation
+    der(y) = f1(y, f2(y));
+  end case2_1;
+
+");
+getErrorString();
+
+setCommandLineOptions("--adolcTrace");
+getErrorString();
+
+simulate(case2, simflags="-jacobian=adolc");
+getErrorString();
+
+
+simulate(case2_1, simflags="-jacobian=adolc");
+getErrorString();
+
