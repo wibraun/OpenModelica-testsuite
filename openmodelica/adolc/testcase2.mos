@@ -57,7 +57,14 @@ getErrorString();
 simulate(case2, simflags="-jacobian=adolc");
 getErrorString();
 
+val(y, 1.0);
+
+/*
+simulate(case2);
+getErrorString();
+
+val(y, 1.0);
 
 simulate(case2_1, simflags="-jacobian=adolc");
 getErrorString();
-
+*/
