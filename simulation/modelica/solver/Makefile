@@ -43,7 +43,8 @@ testDAEp3.mos \
 testDAEp4.mos \
 testDAEp5.mos \
 testDAEp6.mos \
-testDAEmodeDrumBoiler.mos
+testDAEmodeDrumBoiler.mos \
+
 
 # run only symSolver tests
 SYMSOLVER = \
@@ -65,6 +66,13 @@ problem5-symSolverImp.mos \
 problem5-symSolverExp.mos \
 problem6-symSolverImp.mos \
 problem6-symSolverExp.mos \
+
+ADOLCTESTS = \
+testADOLC1.mos \
+testADOLC2.mos \
+testADOLC3.mos \
+testADOLC4.mos \
+testADOLC5.mos \
 
 # Dependency files that are not .mo .mos or Makefile
 # Add them here or they will be cleaned.
@@ -115,3 +123,10 @@ symSolver:
 	@echo
 	@echo OPENMODELICAHOME=" $(OPENMODELICAHOME) "
 	@$(TEST) $(SYMSOLVER)
+
+adolc:
+	@echo
+	@echo Running tests...
+	@echo
+	@echo OPENMODELICAHOME=" $(OPENMODELICAHOME) "
+	@$(TEST) $(ADOLCTESTS)
