@@ -1,0 +1,65 @@
+// name: testADOLC6
+// status: correct
+// teardown_command: rm -f adolcTest* output.log
+
+loadString("
+  model adolcTest
+    Real x,y;
+    function f
+      input Real x;
+      output Real y;
+    protected 
+      Real w[2] = {sin(3.14), sin(x)};
+    algorithm
+      y := w[1]*sin(x);
+      y := y+w[2];
+    end f;
+  equation
+    y = f(x);
+    der(x) = y*time;
+  end adolcTest;
+");
+getErrorString();
+
+
+setCommandLineOptions("--adolcTrace");
+getErrorString();
+
+simulate(adolcTest, simflags="-jacobian=adolc");
+getErrorString();
+
+simulate(adolcTest, simflags="-jacobian=adolcSparse");
+getErrorString();
+
+
+// Result:
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "adolcTest_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'adolcTest', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     messages = "creating subtrace : tag(1), file = _adolcTest_f_aat.txt
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// record SimulationResult
+//     resultFile = "adolcTest_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'adolcTest', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolcSparse'",
+//     messages = "creating subtrace : tag(1), file = _adolcTest_f_aat.txt
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Diag: arg = 3, argnum = 1, res = 2, resnum = 1)
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// endResult
