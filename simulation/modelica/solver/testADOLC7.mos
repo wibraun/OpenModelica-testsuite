@@ -1,0 +1,52 @@
+// name: testADOLC7
+// status: correct
+// teardown_command: rm -f adolcTest* output.log
+
+// testcase for crefs with subscripts, to remove them from opds
+
+loadString("
+  model adolcTest
+    Real x,y[2];
+  algorithm
+    y[1] := sin(x);
+    y[2] := x*y[1];
+  equation
+    der(x) = y[1]*y[2]+time;
+  end adolcTest;
+");
+getErrorString();
+
+setCommandLineOptions("--adolcTrace");
+getErrorString();
+
+simulate(adolcTest, simflags="-jacobian=adolc");
+getErrorString();
+
+simulate(adolcTest, simflags="-jacobian=adolcSparse");
+getErrorString();
+
+
+// Result:
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "adolcTest_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'adolcTest', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     messages = "ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// record SimulationResult
+//     resultFile = "adolcTest_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'adolcTest', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolcSparse'",
+//     messages = "ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// endResult
