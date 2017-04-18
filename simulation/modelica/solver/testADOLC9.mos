@@ -1,0 +1,58 @@
+// name: testADOLC9
+// status: correct
+// teardown_command: rm -f adolcTest* output.log
+
+// function with more then one output
+
+loadString("
+  model adolcTest
+    Real x(start=0.0, fixed=true);
+    Real y, z, w;
+    function f
+      input Real x;
+      output Real y;
+      output Real z;
+      output Real w;
+    protected 
+      //Real w = sin(3.14);
+    algorithm
+      y := x*sin(x);
+      z := x+y;
+      w := z+x;
+    end f;
+  equation
+    (y,z,w) = f(x);
+    der(x) = y+time*z-w;
+  end adolcTest;
+");
+getErrorString();
+
+
+setCommandLineOptions("--adolcTrace");
+getErrorString();
+
+
+simulate(adolcTest, simflags="-jacobian=adolc");
+getErrorString();
+/*
+simulate(adolcTest, simflags="-jacobian=adolcSparse");
+getErrorString();
+*/
+
+// Result:
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "adolcTest_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'adolcTest', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     messages = "creating subtrace : tag(1), file = _adolcTest_f_aat.txt
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// "
+// end SimulationResult;
+// ""
+// endResult
