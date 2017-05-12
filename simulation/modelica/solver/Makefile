@@ -76,6 +76,7 @@ testADOLC5.mos \
 testADOLC6.mos \
 testADOLC7.mos \
 testADOLC8.mos \
+testADOLC9.mos \
 
 # Dependency files that are not .mo .mos or Makefile
 # Add them here or they will be cleaned.
