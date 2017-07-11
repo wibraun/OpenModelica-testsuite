@@ -9,7 +9,7 @@
 loadString("
   model case2
     function f1
-		  input Real x;
+      input Real x;
       output Real y;
     algorithm
       y := sin(x)+cos(x);
@@ -22,7 +22,7 @@ loadString("
 
   model case2_1
     function f1
-		  input Real x;
+      input Real x;
       input Integer i;
       output Real y;
     protected 
@@ -59,12 +59,42 @@ getErrorString();
 
 val(y, 1.0);
 
-/*
+
 simulate(case2);
 getErrorString();
 
 val(y, 1.0);
-
+/*
 simulate(case2_1, simflags="-jacobian=adolc");
 getErrorString();
 */
+
+
+
+// Result:
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "case2_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case2', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     messages = "creating subtrace : tag(1), file = _case2_f1_aat.txt
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 3.363196830055585
+// record SimulationResult
+//     resultFile = "case2_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case2', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = ""
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 3.363196830055585
+// endResult
