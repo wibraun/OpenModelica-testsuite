@@ -1,41 +1,50 @@
-// name: testADOLC5
+// name: testADOLC9
 // status: correct
 // teardown_command: rm -f adolcTest* output.log
 
+// function with more then one output
 
 loadString("
   model adolcTest
+    Real x(start=1.0, fixed=true);
+    Real y, z, w;
     function f
-      input Real x1;
-      input Real x2;
+      input Real x;
       output Real y;
+      output Real z;
+      output Real w;
+    protected 
+      //Real w = sin(3.14);
     algorithm
-      y := x1*x2;
+      y := x*sin(x);
+      z := x+y;
+      w := z+x;
     end f;
-    Real y[8](start=y0);
-    parameter Real y0[8] = { 1, 0, 0, 0, 0, 0, 0, 0.0057};
-    parameter Real p[3] = { 1.71, 0.43, 280.0};
   equation
-    der(y[1]) = -p[1]*y[1] + p[2]*y[2] + 8.32*y[3] + 0.0007;
-    der(y[2]) = p[1]*y[1] - 8.75*y[2];
-    der(y[3]) = -10.03*y[3] + p[2]*y[4] + 0.035*y[5];
-    der(y[4]) =  8.32*y[2] + p[1]*y[3] - 1.12*y[4];
-    der(y[5]) = -1.745*y[5] + p[2]*y[6] + p[2]*y[7];
-    der(y[6]) = -p[3]*f(y[6],y[8]) + 0.69*y[4] + p[1]*y[5] - p[2]*y[6] + 0.69*y[7];
-    der(y[7]) =  p[3]*f(y[6],y[8]) - 1.81*y[7];
-    der(y[8]) = -der(y[7]);
+    (y,z,w) = f(x);
+    der(x) = y+time*z-w;
   end adolcTest;
 ");
 getErrorString();
 
+
+//setCommandLineOptions("--adolcTrace --tearingMethod=noTearing");
+//getErrorString();
 setCommandLineOptions("--adolcTrace");
 getErrorString();
 
+
 simulate(adolcTest, simflags="-jacobian=adolc");
 getErrorString();
+val(x, 1.0);
 
 simulate(adolcTest, simflags="-jacobian=adolcSparse");
 getErrorString();
+val(x, 1.0);
+
+simulate(adolcTest);
+getErrorString();
+val(x, 1.0);
 
 
 // Result:
@@ -53,8 +62,8 @@ getErrorString();
 // Remember to run forward mode with correct setup first.
 // "
 // end SimulationResult;
-// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
-// "
+// ""
+// 0.2698798418640414
 // record SimulationResult
 //     resultFile = "adolcTest_res.mat",
 //     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'adolcTest', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolcSparse'",
@@ -63,10 +72,16 @@ getErrorString();
 // Remember to run forward mode with correct setup first.
 // ADOL-C Warning: reading ascii trace creates no taylor stack
 // Remember to run forward mode with correct setup first.
-// ADOL-C Diag: arg = 17, argnum = 2, res = 19, resnum = 1)
-// ADOL-C Diag: arg = 24, argnum = 2, res = 26, resnum = 1)
+// ADOL-C Diag: arg = 5, argnum = 1, res = 6, resnum = 3)
 // "
 // end SimulationResult;
-// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
-// "
+// ""
+// 0.2698798418640414
+// record SimulationResult
+//     resultFile = "adolcTest_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'adolcTest', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = ""
+// end SimulationResult;
+// ""
+// 0.2698806850983649
 // endResult

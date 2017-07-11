@@ -1,4 +1,4 @@
-// name:     adolcTestcase11
+// name:     testADOLC11
 // keywords: adolc derivatives
 // status: correct
 // teardown_command: rm -rf case1* output.log

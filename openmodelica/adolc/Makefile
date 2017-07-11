@@ -4,6 +4,15 @@ TEST = ../../rtest -v
 TESTFILES = \
 testcase1.mos \
 testcase2.mos \
+testcase3.mos \
+testcase4.mos \
+testcase5.mos \
+testcase6.mos \
+testcase7.mos \
+testcase8.mos \
+testcase9.mos \
+testcase10.mos \
+testcase11.mos \
 
 
 # test that currently fail. Move up when fixed. 
