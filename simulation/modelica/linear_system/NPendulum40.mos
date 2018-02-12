@@ -7,13 +7,14 @@ loadFile("NPendulum.mo");
 getErrorString();
 
 setCommandLineOptions("--maxSizeLinearTearing=0");
+setCommandLineOptions("--generateSymbolicJacobian");
 buildModel(NPendulum.pendulum40); getErrorString();
-system("./NPendulum.pendulum40 -ls umfpack -lssMinSize=4001");
+system("./NPendulum.pendulum40 -ls umfpack -lssMinSize=4001 -jacobian=coloredSymbolical");
 res := OpenModelica.Scripting.compareSimulationResults("NPendulum.pendulum40_res.mat",
   getEnvironmentVar("REFERENCEFILES")+"/linear_system/NPendulum_40.mat",
   "NPendulum_diff.csv",0.01,0.0001,
   {"pendel.phi[40]"});
-system("./NPendulum.pendulum40 -ls klu -lssMinSize=4001");
+system("./NPendulum.pendulum40 -ls klu -lssMinSize=4001 -jacobian=coloredSymbolical");
 res := OpenModelica.Scripting.compareSimulationResults("NPendulum.pendulum40_res.mat",
   getEnvironmentVar("REFERENCEFILES")+"/linear_system/NPendulum_40.mat",
   "NPendulum_diff.csv",0.01,0.0001,
@@ -22,6 +23,7 @@ res := OpenModelica.Scripting.compareSimulationResults("NPendulum.pendulum40_res
 // Result:
 // true
 // ""
+// true
 // true
 // {"NPendulum.pendulum40","NPendulum.pendulum40_init.xml"}
 // "Notification: Automatically loaded package Modelica 3.2.1 due to uses annotation.
