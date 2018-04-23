@@ -1,6 +1,5 @@
-# BuiltinReal.mos fails when using Cevalfunc.mo! the values are OK, the display is different! 
+# BuiltinReal.mos fails when using Cevalfunc.mo! the values are OK, the display is different!
 TEST = ../../rtest -v
-
 
 ifeq ($(OMDEV),)
 	PATH := ./:${PATH}
@@ -19,7 +18,7 @@ FAILINGTESTFILES= \
 DEPENDENCIES = \
 *.mo \
 *.mos \
-Makefile 
+Makefile
 
 
 CLEAN = `ls | grep -w -v -f deps.tmp`
@@ -33,19 +32,19 @@ test:
 	@echo OPENMODELICAHOME=" $(OPENMODELICAHOME) "
 	@$(TEST) $(TESTFILES)
 
-# Cleans all files that are not listed as dependencies 
+# Cleans all files that are not listed as dependencies
 clean :
 	@echo $(DEPENDENCIES) | sed 's/ /\\|/g' > deps.tmp
 	@rm -f $(CLEAN)
 
 # Run this if you want to list out the files (dependencies).
-getdeps: 
+getdeps:
 	@echo $(DEPENDENCIES) | sed 's/ /\\|/g' > deps.tmp
-	@echo $(CLEAN) | sed -r 's/deps.txt|deps.tmp//g' | sed 's/ / \\\n/g' > deps.txt	
+	@echo $(CLEAN) | sed -r 's/deps.txt|deps.tmp//g' | sed 's/ / \\\n/g' > deps.txt
 	@echo Dependency list saved in deps.txt.
 	@echo Copy the list from deps.txt and add it to the Makefile @DEPENDENCIES
-	
-failingtest :
+
+failingtest:
 	@echo
 	@echo Running failing tests...
 	@echo
