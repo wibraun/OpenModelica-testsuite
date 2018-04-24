@@ -35,6 +35,12 @@ getErrorString();
 val(z, 0.0);
 val(z, 1.0);
 
+simulate(case11, simflags="-jacobian=adolcSparse");
+getErrorString();
+
+val(z, 0.0);
+val(z, 1.0);
+
 // Result:
 // true
 // ""

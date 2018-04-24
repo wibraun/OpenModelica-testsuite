@@ -4,7 +4,7 @@
 
 // test linear system 
 loadString("
-  model adolcTest
+  model case10
     Real x,y;
     Real u0;
     Real i1(start=1),i2(start=1),i3(start=1);
@@ -22,7 +22,7 @@ loadString("
     i1-i2-i3=0;
     y = u1+u2+u3;
     der(x) = y+time;
-  end adolcTest;
+  end case10;
 ");
 getErrorString();
 
@@ -30,14 +30,15 @@ getErrorString();
 setCommandLineOptions("--adolcTrace --tearingMethod=noTearing");
 getErrorString();
 
-simulate(adolcTest, simflags="-jacobian=adolc");
+simulate(case10, simflags="-jacobian=adolc");
 getErrorString();
 val(x, 1.0);
-/*
-simulate(adolcTest, simflags="-jacobian=adolcSparse");
+
+simulate(case10, simflags="-jacobian=adolcSparse");
 getErrorString();
-*/
-simulate(adolcTest);
+val(x, 1.0);
+
+simulate(case10);
 getErrorString();
 val(x, 1.0);
 
