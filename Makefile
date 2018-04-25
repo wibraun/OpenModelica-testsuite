@@ -537,6 +537,9 @@ sensitivities.log: omc-diff
 dumpCruntime.log: omc-diff
 	$(MAKE) -j1 -C openmodelica/cruntime/debugDumps -f Makefile test  > $@
 	@echo $@ done
+simadolc.log: omc-diff
+	$(MAKE) -j1 -C openmodelica/adolc -f Makefile test  > $@
+	@echo $@ done
 resolveLoops.log: omc-diff
 	$(MAKE) -C simulation/modelica/resolveLoops -f Makefile test > $@
 	@echo $@ done

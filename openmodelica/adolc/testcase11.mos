@@ -1,0 +1,75 @@
+// name:     testADOLC11
+// keywords: adolc derivatives
+// status: correct
+// teardown_command: rm -rf case1* output.log
+//
+// Testing adolc jacobian driver for a non-linear loop
+//
+
+loadString("
+  model case11
+    Real w,x,y;
+    Real z;
+    parameter Real p[3] = {5.0, 105, 5.0};
+  equation
+    w+x*y = 2;
+    ((p[1] + p[2]*sin(y))*x) + z*w = p[3]*sin(time);
+    x-y = exp(-0.9*x)*cos(y);
+    der(z) = 1/(x+y);
+  end case11;
+");
+getErrorString();
+
+setCommandLineOptions("--adolcTrace");
+getErrorString();
+
+simulate(case11, simflags="-nls newton");
+getErrorString();
+
+val(z, 0.0);
+val(z, 1.0);
+
+simulate(case11, simflags="-jacobian=adolc");
+getErrorString();
+
+val(z, 0.0);
+val(z, 1.0);
+
+// Result:
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "case11_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case11', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-nls newton'",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// Warning: There are iteration variables with default zero start attribute. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 0.0
+// -1.19890171744876
+// record SimulationResult
+//     resultFile = "case11_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case11', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     messages = "ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// Warning: There are iteration variables with default zero start attribute. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 0.0
+// -1.198898996807457
+// endResult

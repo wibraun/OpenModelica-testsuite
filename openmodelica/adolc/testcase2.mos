@@ -1,0 +1,104 @@
+// name:     adolcTestcase2
+// keywords: adolc derivatives
+// status: correct
+// teardown_command: rm -rf case2* output.log
+//
+//
+//
+
+loadString("
+  model case2
+    function f1
+      input Real x;
+      output Real y;
+    algorithm
+      y := sin(x)+cos(x);
+      y := x+y;
+    end f1;
+    Real y(start=1);
+  equation
+    der(y) = f1(y);
+  end case2;
+
+  model case2_1
+    function f1
+      input Real x;
+      input Integer i;
+      output Real y;
+    protected 
+      Real z;
+    algorithm
+      y := sin(x)+cos(x);
+      if i > 0 then 
+        z := y*x;
+        y := tan(z);
+      else
+        y := x+y;
+      end if;
+      annotation(noDerivative(i = f(y)));
+    end f1;
+    function f2
+      input Real x;
+      output Integer i;
+    algorithm
+      i := if x > 0.5 then 1 else 0;
+    end f2;
+    Real y(start=0.1);
+  equation
+    der(y) = f1(y, f2(y));
+  end case2_1;
+
+");
+getErrorString();
+
+setCommandLineOptions("--adolcTrace");
+getErrorString();
+
+simulate(case2, simflags="-jacobian=adolc");
+getErrorString();
+
+val(y, 1.0);
+
+
+simulate(case2);
+getErrorString();
+
+val(y, 1.0);
+/*
+simulate(case2_1, simflags="-jacobian=adolcSparse");
+getErrorString();
+*/
+
+
+
+// Result:
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "case2_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case2', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     messages = "creating subtrace : tag(1), file = _case2_f1_aat.txt
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 3.36319519271668
+// record SimulationResult
+//     resultFile = "case2_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case2', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 3.363196830055585
+// endResult
