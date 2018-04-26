@@ -39,6 +39,7 @@ simulate(adolcTest, simflags="-jacobian=adolc");
 getErrorString();
 val(x, 1.0);
 
+
 simulate(adolcTest, simflags="-jacobian=adolcSparse");
 getErrorString();
 val(x, 1.0);
