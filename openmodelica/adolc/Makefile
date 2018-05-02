@@ -13,6 +13,7 @@ testcase8.mos \
 testcase9.mos \
 testcase10.mos \
 testcase11.mos \
+testcase12.mos \
 
 
 # test that currently fail. Move up when fixed. 
