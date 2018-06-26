@@ -15,12 +15,15 @@ loadString("
       y := sin(x)+cos(x);
       y := x+y;
     end f1;
-    Real y(start=1);
+    Real y(start=1),y2;
     Integer i;
+    Boolean b = if b2 then time>y else y>time;
     parameter Integer i2 = 2;
+    parameter Boolean b2 = true;
   equation
-    i = if time > y then integer(3.12312) else i2;
-    der(y) = f1( if (i>2) then y else 10*y );
+    i = if b then integer(3.14159) else i2;
+    der(y2) = (5+i)*y;
+    der(y) = f1(y2);
   end case13;
 ");
 getErrorString();
@@ -48,9 +51,20 @@ val(i, 1.0);
 // true
 // ""
 // record SimulationResult
-//     resultFile = "case2_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case2', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
-//     messages = "creating subtrace : tag(1), file = _case2_f1_aat.txt
+//     resultFile = "case13_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case13', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 8.21688580351487
+// 2.0
+// record SimulationResult
+//     resultFile = "case13_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case13', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     messages = "creating subtrace : tag(1), file = _case13_f1_aat.txt
 // ADOL-C Warning: reading ascii trace creates no taylor stack
 // Remember to run forward mode with correct setup first.
 // ADOL-C Warning: reading ascii trace creates no taylor stack
@@ -61,15 +75,6 @@ val(i, 1.0);
 // end SimulationResult;
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
-// 3.36319519271668
-// record SimulationResult
-//     resultFile = "case2_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case2', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
-//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
-// LOG_SUCCESS       | info    | The simulation finished successfully.
-// "
-// end SimulationResult;
-// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
-// "
-// 3.363196830055585
+// 8.216885803514863
+// 2.0
 // endResult
