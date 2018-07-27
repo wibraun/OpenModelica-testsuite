@@ -1,0 +1,66 @@
+// name:     adolcTestcase16
+// keywords: adolc external functions CombiTimetable
+// status: correct
+//
+//
+
+loadModel(Modelica);
+loadString("
+model case16
+  annotation(Icon(coordinateSystem(extent={{-100,-100},{100,100}}),graphics={Text(visible=true, fillPattern=FillPattern.Solid, extent={{-100,-150},{100,-110}}, textString=\"%name\")}),Diagram(coordinateSystem(extent={{-148.5,-105},{148.5,105}})));
+  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable1(table=[0,0;1,0;1,1;2,4;3,9;4,16], timeScale=0.2) annotation(Placement(visible=true,transformation(x=-60.1927,y=27.1198,scale=0.075)));
+  Real y,x;
+equation
+  y = combiTimeTable1.y[1];
+  der(x) = sin(y);
+end case16;
+");
+getErrorString();
+
+setCommandLineOptions("--adolcTrace");
+getErrorString();
+
+simulate(case16);
+getErrorString();
+
+val(x, 0.0);
+val(x, 0.5);
+val(x, 1.0);
+
+/*
+simulate(case16, simflags="-jacobian=adolc");
+getErrorString();
+
+val(x, 0.0);
+val(x, 0.5);
+val(x, 1.0);
+*/
+
+// Result:
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "case14_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case14', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 36316.22332983938
+// record SimulationResult
+//     resultFile = "case14_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case14', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     messages = "ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 36316.22332983959
+// endResult
