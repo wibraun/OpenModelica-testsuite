@@ -23,14 +23,14 @@ getErrorString();
 setCommandLineOptions("--adolcTrace");
 getErrorString();
 
-simulate(case17, simflags="-jacobian=adolc");
+simulate(case17, simflags="-jacobian=adolc -lv LOG_JAC_TEST");
 getErrorString();
 
 val(x, 0.0);
 val(x, 0.5);
 val(x, 1.0);
 
-simulate(case17, simflags="-jacobian=adolcSparse");
+simulate(case17, simflags="-jacobian=adolcSparse -lv LOG_JAC_TEST");
 getErrorString();
 
 val(x, 0.0);
@@ -45,7 +45,7 @@ val(x, 1.0);
 // ""
 // record SimulationResult
 //     resultFile = "case17_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case17', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case17', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc -lv LOG_JAC_TEST'",
 //     messages = "ADOL-C info: creating main trace tag(0), filename = case17_aat.txt
 // ADOL-C Warning: reading ascii trace creates no taylor stack
 // Remember to run forward mode with correct setup first.
@@ -60,7 +60,7 @@ val(x, 1.0);
 // 0.08030567767465768
 // record SimulationResult
 //     resultFile = "case17_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case17', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolcSparse'",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case17', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolcSparse -lv LOG_JAC_TEST'",
 //     messages = "rows: 1 cols: 1 maxColors: 1
 // ADOL-C info: creating main trace tag(0), filename = case17_aat.txt
 // ADOL-C Warning: reading ascii trace creates no taylor stack

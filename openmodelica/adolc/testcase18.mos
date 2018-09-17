@@ -1,0 +1,58 @@
+// name: testADOLC18
+// status: correct
+// teardown_command: rm -f adolcTest* output.log
+
+// function with more then one output
+
+loadString("
+  model adolcTest
+    Real x(start=1.0, fixed=true);
+    Real z[2] = {sin(x), 2*x};
+    R r = R(5, cos(x));
+    Real y, y1;
+    record R
+      Real x;
+      Real y;
+    end R;
+    function f
+      input Real[2] x;
+      input R x1;
+      output Real y;
+    algorithm
+      y := x1.x*x[1]+x1.y*x[2];
+    end f;
+  equation
+    y = f({x,2*x},R(10,cos(2*x)));
+    y1 = f(z,r);
+    der(x) = y*time-y1;
+  end adolcTest;
+");
+getErrorString();
+
+
+setCommandLineOptions("--adolcTrace --tearingMethod=noTearing");
+getErrorString();
+
+simulate(adolcTest, simflags="-jacobian=adolc -lv LOG_JAC_TEST");
+getErrorString();
+val(x, 1.0);
+
+// Result:
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "adolcTest_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'adolcTest', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc -lv LOG_JAC_TEST'",
+//     messages = "ADOL-C info: creating main trace tag(0), filename = adolcTest_aat.txt
+// ADOL-C info: creating subtrace : tag(1), file = _adolcTest_f_aat.txt
+// ADOL-C Warning: reading ascii trace creates no taylor stack
+// Remember to run forward mode with correct setup first.
+// LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// 0.406913435018632
+// endResult

@@ -9,10 +9,11 @@ loadString("
 model case16
   annotation(Icon(coordinateSystem(extent={{-100,-100},{100,100}}),graphics={Text(visible=true, fillPattern=FillPattern.Solid, extent={{-100,-150},{100,-110}}, textString=\"%name\")}),Diagram(coordinateSystem(extent={{-148.5,-105},{148.5,105}})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable1(table=[0,0;1,0;1,1;2,4;3,9;4,16], timeScale=0.2) annotation(Placement(visible=true,transformation(x=-60.1927,y=27.1198,scale=0.075)));
-  Real y,x;
+  Real y,x(start=1);
+  parameter Real a=10;
 equation
-  y = combiTimeTable1.y[1];
-  der(x) = sin(y);
+  y = a*combiTimeTable1.y[1];
+  der(x) = sin(y)*x;
 end case16;
 ");
 getErrorString();
@@ -20,47 +21,37 @@ getErrorString();
 setCommandLineOptions("--adolcTrace");
 getErrorString();
 
-simulate(case16);
+simulate(case16, simflags="-jacobian=adolc -lv LOG_JAC_TEST");
 getErrorString();
 
 val(x, 0.0);
 val(x, 0.5);
 val(x, 1.0);
 
-/*
-simulate(case16, simflags="-jacobian=adolc");
-getErrorString();
-
-val(x, 0.0);
-val(x, 0.5);
-val(x, 1.0);
-*/
 
 // Result:
 // true
+// true
 // ""
 // true
 // ""
 // record SimulationResult
-//     resultFile = "case14_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case14', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
-//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
-// LOG_SUCCESS       | info    | The simulation finished successfully.
-// "
-// end SimulationResult;
-// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
-// "
-// 36316.22332983938
-// record SimulationResult
-//     resultFile = "case14_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case14', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
-//     messages = "ADOL-C Warning: reading ascii trace creates no taylor stack
+//     resultFile = "case16_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case16', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc -lv LOG_JAC_TEST'",
+//     messages = "ADOL-C info: creating main trace tag(0), filename = case16_aat.txt
+// ADOL-C Warning: reading ascii trace creates no taylor stack
 // Remember to run forward mode with correct setup first.
 // LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
 // LOG_SUCCESS       | info    | The simulation finished successfully.
 // "
 // end SimulationResult;
-// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "[Modelica 3.2.2/Blocks/Sources.mo:2346:7-2347:66:writable] Warning: Unused input variable tableAvailable in function .Modelica.Blocks.Sources.CombiTimeTable$combiTimeTable1.getDerTableValue.
+// [Modelica 3.2.2/Blocks/Sources.mo:2312:7-2313:66:writable] Warning: Unused input variable tableAvailable in function .Modelica.Blocks.Sources.CombiTimeTable$combiTimeTable1.getTableValue.
+// [Modelica 3.2.2/Blocks/Sources.mo:2358:7-2359:66:writable] Warning: Unused input variable tableAvailable in function .Modelica.Blocks.Sources.CombiTimeTable$combiTimeTable1.getTableTimeTmin.
+// [Modelica 3.2.2/Blocks/Sources.mo:2369:7-2370:66:writable] Warning: Unused input variable tableAvailable in function .Modelica.Blocks.Sources.CombiTimeTable$combiTimeTable1.getTableTimeTmax.
+// Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
-// 36316.22332983959
+// 1.0
+// 0.9984305432887665
+// 0.9989646069756916
 // endResult

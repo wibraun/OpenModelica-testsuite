@@ -1,5 +1,5 @@
 // name: testADOLC6
-// status: correct
+// status: erroneous
 // teardown_command: rm -f adolcTest* output.log
 
 loadString("
@@ -25,18 +25,13 @@ getErrorString();
 setCommandLineOptions("--adolcTrace");
 getErrorString();
 
-simulate(adolcTest, simflags="-jacobian=adolc");
+simulate(adolcTest, simflags="-jacobian=adolc -lv LOG_JAC_TEST ");
 getErrorString();
 val(x, 1.0);
 
-simulate(adolcTest, simflags="-jacobian=adolcSparse");
+simulate(adolcTest, simflags="-jacobian=adolcSparse -lv LOG_JAC_TEST");
 getErrorString();
 val(x, 1.0);
-
-simulate(adolcTest);
-getErrorString();
-val(x, 1.0);
-
 
 // Result:
 // true

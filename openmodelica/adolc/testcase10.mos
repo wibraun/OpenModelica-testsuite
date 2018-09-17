@@ -27,21 +27,16 @@ loadString("
 getErrorString();
 
 
-setCommandLineOptions("--adolcTrace --tearingMethod=noTearing --generateSymbolicJacobian");
+setCommandLineOptions("--adolcTrace --tearingMethod=noTearing");
 getErrorString();
 
-simulate(case10, simflags="-jacobian=adolc");
-getErrorString();
-val(x, 1.0);
-
-simulate(case10, simflags="-jacobian=adolcSparse");
+simulate(case10, simflags="-jacobian=adolc -lv LOG_JAC_TEST");
 getErrorString();
 val(x, 1.0);
 
-simulate(case10);
+simulate(case10, simflags="-jacobian=adolcSparse -lv LOG_JAC_TEST");
 getErrorString();
 val(x, 1.0);
-
 
 // Result:
 // true
@@ -50,8 +45,10 @@ val(x, 1.0);
 // ""
 // record SimulationResult
 //     resultFile = "case10_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case10', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc'",
-//     messages = "ADOL-C Warning: reading ascii trace creates no taylor stack
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case10', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolc -lv LOG_JAC_TEST'",
+//     messages = "ADOL-C info: creating main trace tag(0), filename = case10_aat.txt
+// alloc_adolc_lin_sol case10_ls_0_pat.txt  0
+// ADOL-C Warning: reading ascii trace creates no taylor stack
 // Remember to run forward mode with correct setup first.
 // LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
 // LOG_SUCCESS       | info    | The simulation finished successfully.
@@ -62,8 +59,11 @@ val(x, 1.0);
 // 2.220917243032372
 // record SimulationResult
 //     resultFile = "case10_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case10', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolcSparse'",
-//     messages = "ADOL-C Warning: reading ascii trace creates no taylor stack
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case10', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = '-jacobian=adolcSparse -lv LOG_JAC_TEST'",
+//     messages = "rows: 1 cols: 1 maxColors: 1
+// ADOL-C info: creating main trace tag(0), filename = case10_aat.txt
+// alloc_adolc_lin_sol case10_ls_0_pat.txt  0
+// ADOL-C Warning: reading ascii trace creates no taylor stack
 // Remember to run forward mode with correct setup first.
 // LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
 // LOG_SUCCESS       | info    | The simulation finished successfully.
@@ -72,14 +72,4 @@ val(x, 1.0);
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
 // 2.220917243032372
-// record SimulationResult
-//     resultFile = "case10_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-06, method = 'dassl', fileNamePrefix = 'case10', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
-//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
-// LOG_SUCCESS       | info    | The simulation finished successfully.
-// "
-// end SimulationResult;
-// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
-// "
-// 2.220917243032385
 // endResult

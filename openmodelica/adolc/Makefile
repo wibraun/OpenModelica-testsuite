@@ -12,9 +12,17 @@ testcase7.mos \
 testcase8.mos \
 testcase9.mos \
 testcase10.mos \
+testcase10-2.mos \
 testcase11.mos \
 testcase12.mos \
-
+testcase13.mos \
+testBug.mos \
+testcase14.mos \
+testcase15.mos \
+testcase16.mos \
+testcase17.mos \
+testcase18.mos \
+testcase19.mos \
 
 # test that currently fail. Move up when fixed. 
 # Run make testfailing
